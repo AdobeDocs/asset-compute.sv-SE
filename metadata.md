@@ -12,9 +12,9 @@ feature-set: Experience Manager Assets
 git-repo: https://github.com/AdobeDocs/asset-compute.sv-SE
 index: y
 recommendations: noDisplay
-source-git-commit: cb87ab6081d53610acf27419fa5103b3ae1ead03
+source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
 workflow-type: tm+mt
-source-wordcount: '128'
+source-wordcount: '132'
 ht-degree: 0%
 
 ---
@@ -28,11 +28,11 @@ Filen metadata.md innehåller metadata på postnivå som skickas till TOC.md-fil
 |--- |--- |
 | solution-title | Används i artikelrubriken som länk |
 | solution-hub-url | Öppnar hubbsida för stöd |
-| solution-icon | Visar lösningsikonen bredvid lösningsrubriken. Inte implementerat ännu |
+| solution-icon | Visar en lösningsikon bredvid lösningsrubriken. Inte implementerat ännu |
 | getting-started-url | Länk till sidan Komma igång |
-| tutorials-url | Länka till videosjälvstudiekurser - antingen hjälpstudiekurser eller självstudiekurser på engelska |
+| tutorials-url | Länka till videosjälvstudiekurser - antingen självstudiekurser i hjälpen eller självstudiekurser i kunskapsöverföring |
 | mini-toc-nivåer | Anger antalet rubriknivåer som visas i den högra listen. standard är 2 |
-| git-repo | Anger platsen för huvudrapporten för intern användning |
+| git-repo | Anger platsen för den primära rapporten för intern användning |
 
 I filen TOC.md
 

@@ -1,17 +1,16 @@
 ---
-source-git-commit: 1a300e1c83d5ab3508cb762149167029eb73ed2c
+source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
 workflow-type: tm+mt
-translation-type: tm+mt
-source-wordcount: '69'
+source-wordcount: '68'
 ht-degree: 0%
 
 ---
 # Adobe Asset compute tjänstdokumentation
 
-Det här är databasen för dokumentation av [!DNL Adobe Asset Compute Service].
+Den här dokumentationsdatabasen är för [!DNL Adobe Asset Compute Service].
 
 Dina bidrag till dokumentationen är välkomna. Se följande resurser:
 
-* [contribute.](contributing.md) mdEn översikt över hur du kan bidra till dokumentationen.
-* [guidelines.](guidelines.md) mdEn översikt över vad som förväntas i bidragen och hur du komponerar dokumentationsbidragen.
-* [code-of-behavior.](code-of-conduct.md) mdFör en översikt över de beteendestandarder vi förväntar oss när du bidrar till detta dokumentationsprojekt.
+* [contribute.md](contributing.md) En översikt över hur du bidrar till dokumentationen.
+* [riktlinjer.md](guidelines.md) En översikt över vad som förväntas i bidragen och hur du skapar dina dokumentationsbidrag.
+* [uppförandekod.md](code-of-conduct.md) En översikt över beteendestandarder som Adobe förväntar sig när du bidrar till det här dokumentationsprojektet.

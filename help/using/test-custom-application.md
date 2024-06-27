@@ -2,9 +2,9 @@
 title: Testa och felsöka [!DNL Asset Compute Service] anpassat program
 description: Testa och felsöka [!DNL Asset Compute Service] anpassat program.
 exl-id: c2534904-0a07-465e-acea-3cb578d3bc08
-source-git-commit: 5257e091730f3672c46dfbe45c3e697a6555e6b1
+source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
 workflow-type: tm+mt
-source-wordcount: '812'
+source-wordcount: '775'
 ht-degree: 0%
 
 ---
@@ -25,17 +25,17 @@ To run tests for a custom application, run `aio asset-compute test-worker` comma
 Document interactively running `adobe-asset-compute` commands `test-worker` and `run-worker`.
 -->
 
-Detta kör ett anpassat enhetstestramverk för programåtgärder i Asset compute i projektet enligt beskrivningen nedan. Den är ansluten via en konfiguration i `package.json` -fil. Det går också att använda JavaScript-enhetstester som Jest. `aio app test` kör båda.
+Det här kommandot kör ett anpassat enhetstestramverk för programåtgärder i Asset compute i projektet enligt beskrivningen nedan. Den är ansluten via en konfiguration i `package.json` -fil. Det går också att använda JavaScript-enhetstester som Jest. The `aio app test` kör båda.
 
 The [aio-cli-plugin-asset-compute](https://github.com/adobe/aio-cli-plugin-asset-compute#install-as-local-devdependency) plugin-programmet är inbäddat som ett utvecklingsberoende i det anpassade programmet, så att det inte behöver installeras på build/test-system.
 
 ### Ramverk för testning av programenhet {#unit-test-framework}
 
-Med testramverket för programenheten i Asset compute kan du testa program utan att skriva någon kod. Den bygger på principen för källa till återgivning av program. En viss fil- och mappstruktur måste konfigureras för att definiera testfall med testkällfiler, valfria parametrar, förväntade återgivningar och anpassade valideringsskript. Som standard jämförs återgivningarna för bytelikhet. Dessutom kan externa HTTP-tjänster enkelt modelleras med enkla JSON-filer.
+Med testmiljön i Asset Compute kan du testa program utan att skriva någon kod. Den bygger på principen för källa till återgivning av program. En viss fil- och mappstruktur måste ställas in för att definiera testfall med testkällfiler, valfria parametrar, förväntade återgivningar och anpassade valideringsskript. Som standard jämförs återgivningarna för bytelikhet. Dessutom kan externa HTTP-tjänster enkelt modelleras med enkla JSON-filer.
 
 ### Lägg till tester {#add-tests}
 
-Tester förväntas inne i `test` på rotnivån i [!DNL Adobe I/O] projekt. Testfallen för varje program ska ligga i sökvägen `test/asset-compute/<worker-name>`, med en mapp för varje testfall:
+Tester förväntas inne i `test` på projektets rotnivå. Testfallen för varje program ska ligga i sökvägen `test/asset-compute/<worker-name>`, med en mapp för varje testfall:
 
 ```yaml
 action/
@@ -62,15 +62,15 @@ test/
             mock-console.adobe.io.json
 ```
 
-Ta en titt på [exempel på anpassade program](https://github.com/adobe/asset-compute-example-workers/) för några exempel. Nedan finns en detaljerad referens.
+Titta på [exempel på anpassade program](https://github.com/adobe/asset-compute-example-workers/) för några exempel. Nedan finns en detaljerad referens.
 
 ### Testa utdata {#test-output}
 
-Detaljerade testresultat, inklusive loggarna för det anpassade programmet, finns i `build` i roten av Adobe Developer App Builder-appen, vilket visas i `aio app test` utdata.
+The `build` i Adobe Developer App Builder-programmets rot innehåller detaljerade testresultat och loggar för det anpassade programmet. De här detaljerna visas även i utdata från `aio app test` -kommando.
 
 ### Visa externa tjänster {#mock-external-services}
 
-Det går att koppla externa servicesamtal till dina åtgärder genom att definiera `mock-<HOST_NAME>.json` -filer i dina testfall, där HOST_NAME är den värd som du vill skapa en dummy av. Ett exempel är ett program som gör ett separat anrop till S3. Den nya teststrukturen skulle se ut så här:
+Du kan simulera externa servicesamtal i funktionsmakron genom att skapa `mock-<HOST_NAME>.json` filer för dina testscenarier, där HOST_NAME är den specifika värd som du tänker imitera. Ett exempel på användningsfall är ett program som gör ett separat anrop till S3. Den nya teststrukturen skulle se ut så här:
 
 ```json
 test/
@@ -101,11 +101,11 @@ Mock-filen är ett JSON-formaterat http-svar. Mer information finns i [den här 
 }]
 ```
 
-Exemplet `worker-animal-pictures` innehåller en [dummyfil](https://github.com/adobe/asset-compute-example-workers/blob/master/projects/worker-animal-pictures/test/asset-compute/worker-animal-pictures/simple-test/mock-upload.wikimedia.org.json) för den Wikimedia-tjänst den interagerar med.
+Exemplet `worker-animal-pictures` innehåller en [dummy-fil](https://github.com/adobe/asset-compute-example-workers/blob/master/projects/worker-animal-pictures/test/asset-compute/worker-animal-pictures/simple-test/mock-upload.wikimedia.org.json) för den Wikimedia-tjänst den interagerar med.
 
 #### Dela filer i testfall {#share-files-across-test-cases}
 
-Du bör använda relativa symboler om du delar `file.*`, `params.json` eller `validate` skript i flera tester. De stöds med Git. Ge de delade filerna ett unikt namn, eftersom du kan ha andra. I exemplet nedan blandas och matchar testerna några delade filer och deras egna:
+Adobe rekommenderar att du använder relativa symboler om du delar dem `file.*`, `params.json` eller `validate` skript i flera tester. De stöds av Git. Ge de delade filerna ett unikt namn, eftersom du kan ha andra. I exemplet nedan blandas och matchar testerna några delade filer och deras egna:
 
 ```json
 tests/
@@ -135,11 +135,11 @@ tests/
 
 ### Testa förväntade fel {#test-unexpected-errors}
 
-Feltestfall får inte innehålla förväntat `rendition.*` och bör definiera den förväntade `errorReason` inuti `params.json` -fil.
+Feltestfall får inte innehålla förväntat `rendition.*` och bör definiera den förväntade `errorReason` innanför `params.json` -fil.
 
 >[!NOTE]
 >
->Om ett testfall inte innehåller ett förväntat `rendition.*` och definierar inte den förväntade `errorReason` inuti `params.json` -filen, antas vara ett felfall med `errorReason`.
+>Om ett testfall inte innehåller ett förväntat `rendition.*` och definierar inte den förväntade `errorReason` innanför `params.json` -filen, antas vara ett felfall med `errorReason`.
 
 Struktur för feltest:
 
@@ -164,7 +164,7 @@ Se en komplett lista och en beskrivning av [Felorsaker i asset compute](https://
 
 Följande steg visar hur du kan felsöka ditt anpassade program med Visual Studio Code. Det gör det möjligt att se liveloggar, träffbrytpunkter och stega igenom kod samt ladda om lokala kodändringar live vid varje aktivering.
 
-Många av dessa steg automatiseras vanligtvis av `aio` finns i avsnittet Felsöka programmet i [Dokumentation för Adobe Developer App Builder](https://developer.adobe.com/app-builder/docs/getting_started/first_app). För tillfället innehåller stegen nedan en lösning.
+The `aio` körklar automatiserar många av dessa steg. Gå till avsnittet Felsöka programmet i [Adobe Developer App Builder-dokumentation](https://developer.adobe.com/app-builder/docs/getting_started/first_app). För tillfället innehåller stegen nedan en lösning.
 
 1. Installera den senaste [wskdebug](https://github.com/apache/openwhisk-wskdebug) från GitHub och [ngrok](https://www.npmjs.com/package/ngrok).
 
@@ -173,11 +173,11 @@ Många av dessa steg automatiseras vanligtvis av `aio` finns i avsnittet Felsök
    npm install -g ngrok --unsafe-perm=true
    ```
 
-1. Lägg till i JSON-filen för användarinställningar. Den gamla VS-kodfelsökaren används hela tiden, den nya har [vissa problem](https://github.com/apache/openwhisk-wskdebug/issues/74) med wskdebug: `"debug.javascript.usePreview": false`.
+1. Gör tillägg till dina användarinställningar i JSON-filen. Den gamla Visual Studio Code debugger används hela tiden. Den nya har [vissa problem](https://github.com/apache/openwhisk-wskdebug/issues/74) med wskdebug: `"debug.javascript.usePreview": false`.
 1. Stäng alla instanser av program som är öppna via `aio app run`.
 1. Distribuera den senaste koden med `aio app deploy`.
 1. Kör endast utvecklingsverktyget Asset compute med `aio asset-compute devtool`. Håll den öppen.
-1. I VS-kodredigeraren lägger du till följande felsökningskonfiguration i `launch.json`:
+1. I Visual Studio Code Editor lägger du till följande felsökningskonfiguration i `launch.json`:
 
    ```json
    {
@@ -202,9 +202,9 @@ Många av dessa steg automatiseras vanligtvis av `aio` finns i avsnittet Felsök
 
 1. Välj `wskdebug worker` i körnings-/felsökningskonfigurationen och tryck på uppspelningsikonen. Vänta tills den visas **[!UICONTROL Klar för aktivering]** i **[!UICONTROL Felsökningskonsolen]** -fönstret.
 
-1. Klicka **[!UICONTROL run]** i utvecklingsverktyget. Du kan se vilka åtgärder som körs i VS-kodredigeraren och loggarna visas.
+1. Klicka **[!UICONTROL run]** i utvecklingsverktyget. Du kan se vilka åtgärder som körs i Visual Studio-kodredigeraren och att loggarna börjar visas.
 
-1. Ange en brytpunkt i koden, kör igen och det ska tryckas.
+1. Ange en brytpunkt i koden. Kör igen och det borde slå.
 
 Alla kodändringar läses in i realtid och träder i kraft så snart nästa aktivering sker.
 
