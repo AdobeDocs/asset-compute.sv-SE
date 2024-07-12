@@ -1,6 +1,6 @@
 ---
-title: Introduktion till [!DNL Asset Compute Service]
-description: "[!DNL Asset Compute Service] är en molnbaserad resurshanteringstjänst som minskar komplexiteten och förbättrar skalbarheten."
+title: Introduktion till  [!DNL Asset Compute Service]
+description: "[!DNL Asset Compute Service] är en resurshanteringstjänst i molnet som minskar komplexiteten och förbättrar skalbarheten."
 exl-id: f8c89f65-5a94-44f3-aaac-4612ae291101
 source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
 workflow-type: tm+mt
@@ -9,23 +9,23 @@ ht-degree: 0%
 
 ---
 
-# Översikt [!DNL Asset Compute Service] {#overview}
+# Översikt över [!DNL Asset Compute Service] {#overview}
 
-[!DNL Asset Compute Service] är en skalbar och utbyggbar tjänst i [!DNL Adobe Experience Cloud] för att bearbeta digitalt material. Det kan omvandla bild, video, dokument och andra filformat till olika renderingar, bland annat miniatyrbilder, extraherad text och metadata samt arkiv.
+[!DNL Asset Compute Service] är en skalbar och utökningsbar tjänst för [!DNL Adobe Experience Cloud] som bearbetar digitala resurser. Det kan omvandla bild, video, dokument och andra filformat till olika renderingar, bland annat miniatyrbilder, extraherad text och metadata samt arkiv.
 
-Utvecklare kan plugin-program för anpassade resurser (kallas även anpassade arbetare) för att hantera anpassade användningsfall. Tjänsten fungerar på Adobe [!DNL I/O Runtime]. Den kan utökas genom [!DNL Adobe Developer App Builder] headless-appar skrivna i Node.js. De kan utföra anpassade åtgärder som att anropa externa API:er för att utföra bildåtgärder eller utnyttja [!DNL Adobe Sensei] support.
+Utvecklare kan plugin-program för anpassade resurser (kallas även anpassade arbetare) för att hantera anpassade användningsfall. Tjänsten fungerar på Adobe [!DNL I/O Runtime]. Den kan utökas via [!DNL Adobe Developer App Builder] headless-appar skrivna i Node.js. De kan utföra anpassade åtgärder som att anropa externa API:er för att utföra bildåtgärder eller utnyttja stödet för [!DNL Adobe Sensei].
 
-[!DNL Adobe Developer App Builder] är ett ramverk för att bygga och driftsätta anpassade webbapplikationer på Adobe [!DNL I/O Runtime] för att utöka Adobe Experience Cloud lösningar. För att skapa anpassade program kan utvecklarna utnyttja [!DNL React Spectrum] (Adobe UI), skapa mikrotjänster, skapa anpassade händelser och ordna API:er. Se [dokumentation om Adobe Developer App Builder](https://developer.adobe.com/app-builder/docs/overview/).
+[!DNL Adobe Developer App Builder] är ett ramverk för att skapa och distribuera anpassade webbprogram på Adobe [!DNL I/O Runtime] för att utöka Adobe Experience Cloud lösningar. Om du vill skapa anpassade program kan utvecklarna använda [!DNL React Spectrum] (Adobe UI-verktygslådan), skapa mikrotjänster, skapa anpassade händelser och ordna API:er. Se [dokumentation om Adobe Developer App Builder](https://developer.adobe.com/app-builder/docs/overview/).
 
 >[!NOTE]
 >
->För närvarande är [!DNL Asset Compute Service] kan endast användas via [!DNL Experience Manager] som [!DNL Cloud Service]. Administratörer skapar bearbetningsprofiler som kan anropa [!DNL Asset Compute Service] för att överföra resurser för bearbetning. Se [använda mikrotjänster och bearbetningsprofiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+>För närvarande kan [!DNL Asset Compute Service] bara användas via [!DNL Experience Manager] som [!DNL Cloud Service]. Administratörer skapar bearbetningsprofiler som kan anropa [!DNL Asset Compute Service] för att skicka resurser för bearbetning. Se [Använda resursmikrotjänster och bearbetningsprofiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 ## Användningsexempel som stöds av [!DNL Asset Compute Service] {#possible-use-cases-benefits}
 
-[!DNL Asset Compute Service] har stöd för ett fåtal vanliga användningsområden, som grundläggande bildbehandling, programspecifika konverteringar i Adobe samt skräddarsydda applikationer som hanterar komplexa affärsbehov.
+[!DNL Asset Compute Service] har stöd för ett fåtal vanliga användningsfall, t.ex. grundläggande bildbearbetning, programspecifika konverteringar i Adobe samt anpassade programskapande som hanterar komplexa affärskrav.
 
-Du kan använda [!DNL Asset Compute] webbtjänst för att generera miniatyrbilder för olika filtyper, bildåtergivning med hög kvalitet för [filformat](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support). Se [användningsfall som stöds via anpassad konfiguration](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+Du kan använda webbtjänsten [!DNL Asset Compute] för att generera miniatyrbilder för olika filtyper, bildåtergivning med hög kvalitet för de [filformat som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support). Se [användningsfall som stöds via anpassad konfiguration](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
@@ -44,7 +44,7 @@ Du kan använda [!DNL Asset Compute] webbtjänst för att generera miniatyrbilde
 
 >[!MORELIKETHIS]
 >
->* [Översikt över bearbetning av resurser med hjälp av mikrotjänster på [!DNL Adobe Experience Manager] som [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview).
+>* [Översikt över resursbearbetning med tillgångsmikrotjänster i [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview).
 >* [Dokumentation för Adobe Developer App Builder](https://developer.adobe.com/app-builder/docs/overview).
 >* [Filformat som stöds för bearbetning](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
 

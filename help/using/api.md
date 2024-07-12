@@ -9,40 +9,40 @@ ht-degree: 0%
 
 ---
 
-# [!DNL Asset Compute Service] HTTP-API {#asset-compute-http-api}
+# [!DNL Asset Compute Service] HTTP API {#asset-compute-http-api}
 
-API:t används endast i utvecklingssyfte. API:t anges som ett sammanhang när du utvecklar anpassade program. [!DNL Adobe Experience Manager] som [!DNL Cloud Service] använder API:t för att skicka bearbetningsinformationen till ett anpassat program. Mer information finns i [Använd resursmikrotjänster och bearbetningsprofiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+API:t används endast i utvecklingssyfte. API:t anges som ett sammanhang när du utvecklar anpassade program. [!DNL Adobe Experience Manager] som [!DNL Cloud Service] använder API:t för att skicka bearbetningsinformationen till ett anpassat program. Mer information finns i [Använda resursmikrotjänster och Bearbeta profiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
->[!DNL Asset Compute Service] är endast tillgänglig för användning med [!DNL Experience Manager] som [!DNL Cloud Service].
+>[!DNL Asset Compute Service] är bara tillgängligt för användning med [!DNL Experience Manager] som [!DNL Cloud Service].
 
-Alla klienter i [!DNL Asset Compute Service] HTTP API måste följa detta arbetsflöde på hög nivå:
+Alla klienter för HTTP-API:t [!DNL Asset Compute Service] måste följa detta högnivåflöde:
 
-1. En klient etableras som en [!DNL Adobe Developer Console] i en IMS-organisation. Varje separat klient (system eller miljö) kräver ett eget separat projekt för att separera händelsedataflödet.
+1. En klient har etablerats som ett [!DNL Adobe Developer Console]-projekt i en IMS-organisation. Varje separat klient (system eller miljö) kräver ett eget separat projekt för att separera händelsedataflödet.
 
-1. En klient genererar en åtkomsttoken för det tekniska kontot med [JWT-autentisering (tjänstkonto)](https://developer.adobe.com/developer-console/docs/guides/).
+1. En klient genererar en åtkomsttoken för det tekniska kontot med hjälp av [JWT-autentisering (tjänstkonto)](https://developer.adobe.com/developer-console/docs/guides/).
 
-1. Ett klientanrop [`/register`](#register) bara en gång för att hämta journal-URL:en.
+1. En klient anropar bara [`/register`](#register) en gång för att hämta journal-URL:en.
 
-1. Ett klientanrop [`/process`](#process-request) för varje resurs som den vill generera återgivningar för. Anropet är asynkront.
+1. En klient anropar [`/process`](#process-request) för varje resurs som den vill generera återgivningar för. Anropet är asynkront.
 
-1. En kund avfrågar regelbundet journalen till [ta emot händelser](#asynchronous-events). Den tar emot händelser för varje begärd återgivning när återgivningen har bearbetats (`rendition_created` händelsetyp) eller om det finns ett fel (`rendition_failed` händelsetyp).
+1. En klient avsöker regelbundet journalen för att [ta emot händelser](#asynchronous-events). Den tar emot händelser för varje begärd återgivning när återgivningen har bearbetats (`rendition_created` händelsetyp) eller om det finns ett fel (`rendition_failed` händelsetyp).
 
-The [adobe-asset-compute-client](https://github.com/adobe/asset-compute-client) gör det enkelt att använda API:t i Node.js-koden.
+Modulen [adobe-asset-compute-client](https://github.com/adobe/asset-compute-client) gör det enkelt att använda API:t i Node.js-koden.
 
 ## Autentisering och auktorisering {#authentication-and-authorization}
 
 Alla API:er kräver åtkomsttokenautentisering. Förfrågningarna måste ange följande rubriker:
 
-1. `Authorization` rubrik med bearer-token, som är teknisk kontotoken, mottagen via [JWT-utbyte](https://developer.adobe.com/developer-console/docs/guides/) från Adobe Developer Console-projekt. The [omfattningar](#scopes) beskrivs nedan.
+1. `Authorization`-huvud med bearer-token, som är den tekniska kontotoken, har tagits emot via [JWT exchange](https://developer.adobe.com/developer-console/docs/guides/) från Adobe Developer Console-projekt. [omfattningarna](#scopes) beskrivs nedan.
 
 <!-- TBD: Change the existing URL to a new path when a new path for docs is available. The current path contains master word that is not an inclusive term. Logged ticket in Adobe I/O's GitHub repo to get a new URL.
 -->
 
-1. `x-gw-ims-org-id` rubrik med IMS-organisations-ID.
+1. `x-gw-ims-org-id`-huvud med IMS-organisations-ID.
 
-1. `x-api-key` med klient-ID från [!DNL Adobe Developers Console] projekt.
+1. `x-api-key` med klient-ID från projektet [!DNL Adobe Developers Console].
 
 ### Omfång {#scopes}
 
@@ -58,32 +58,32 @@ Kontrollera följande scope för åtkomsttoken:
 * `additional_info.roles`
 * `additional_info.projectedProductContext`
 
-Dessa scope kräver [!DNL Adobe Developer Console] projekt att prenumerera på `Asset Compute`, `I/O Events`och `I/O Management API` tjänster. Uppdelningen av enskilda omfattningar är:
+Dessa omfattningar kräver att projektet [!DNL Adobe Developer Console] prenumererar på tjänsterna `Asset Compute`, `I/O Events` och `I/O Management API`. Uppdelningen av enskilda omfattningar är:
 
 * Grundläggande
    * omfattningar: `openid,AdobeID`
 
 * Asset compute
-   * metaskop: `asset_compute_meta`
+   * metascope: `asset_compute_meta`
    * omfattningar: `asset_compute,read_organizations`
 
 * Adobe [!DNL `I/O Events`]
-   * metaskop: `event_receiver_api`
+   * metascope: `event_receiver_api`
    * omfattningar: `event_receiver,event_receiver_api`
 
 * Adobe [!DNL `I/O Management API`]
-   * metaskop: `ent_adobeio_sdk`
+   * metascope: `ent_adobeio_sdk`
    * omfattningar: `adobeio_api,additional_info.roles,additional_info.projectedProductContext`
 
 ## Registrering {#register}
 
-Varje klient i [!DNL Asset Compute service] - en unik [!DNL Adobe Developer Console] projekt som prenumererar på tjänsten - måste [register](#register-request) innan du gör en begäran om behandling. Registreringssteget returnerar den unika händelsjournal som krävs för att hämta asynkrona händelser från återgivningsbearbetningen.
+Varje klient för [!DNL Asset Compute service] - ett unikt [!DNL Adobe Developer Console]-projekt som prenumererar på tjänsten - måste [registrera](#register-request) innan bearbetningen kan göras. Registreringssteget returnerar den unika händelsjournal som krävs för att hämta asynkrona händelser från återgivningsbearbetningen.
 
-När livscykeln är slut kan kunden [avregistrera](#unregister-request).
+När livscykeln är slut kan en klient [avregistrera](#unregister-request).
 
 ### Registrera förfrågan {#register-request}
 
-Detta API-anrop konfigurerar en [!DNL Asset Compute] och tillhandahåller händelseloggens URL. Den här processen är en depotent åtgärd och behöver bara anropas en gång för varje klient. Den kan anropas igen för att hämta journal-URL:en.
+Detta API-anrop konfigurerar en [!DNL Asset Compute]-klient och tillhandahåller händelsens journal-URL. Den här processen är en depotent åtgärd och behöver bara anropas en gång för varje klient. Den kan anropas igen för att hämta journal-URL:en.
 
 | Parameter | Värde |
 |--------------------------|------------------------------------------------------|
@@ -98,12 +98,12 @@ Detta API-anrop konfigurerar en [!DNL Asset Compute] och tillhandahåller hände
 | Parameter | Värde |
 |-----------------------|------------------------------------------------------|
 | MIME-typ | `application/json` |
-| Sidhuvud `X-Request-Id` | Antingen samma som `X-Request-Id` begäranhuvud eller en unikt genererad rubrik. Används för att identifiera förfrågningar mellan system, supportförfrågningar eller båda. |
-| Svarstext | Ett JSON-objekt med `journal`, `ok`, eller `requestId` fält. |
+| Sidhuvud `X-Request-Id` | Antingen samma som begärandehuvudet `X-Request-Id` eller en unikt genererad. Används för att identifiera förfrågningar mellan system, supportförfrågningar eller båda. |
+| Svarstext | Ett JSON-objekt med fälten `journal`, `ok` eller `requestId`. |
 
 HTTP-statuskoderna är:
 
-* **200 lyckades**: När begäran har slutförts. The `journal` URL:en får meddelanden om resultatet av den asynkrona bearbetning som initierats via `/process`. IT-meddelanden om `rendition_created` händelser när de har slutförts, eller `rendition_failed` händelser om processen misslyckas.
+* **200 lyckades**: När begäran lyckades. URL:en `journal` får meddelanden om resultatet av den asynkrona bearbetning som initierats med hjälp av `/process`. Den varnar om `rendition_created` händelser när de har slutförts, eller `rendition_failed` händelser om processen misslyckas.
 
   ```json
   {
@@ -113,9 +113,9 @@ HTTP-statuskoderna är:
   }
   ```
 
-* **401 Obehörig**: inträffar när begäran inte är giltig [autentisering](#authentication-and-authorization). Ett exempel kan vara en ogiltig åtkomsttoken eller en ogiltig API-nyckel.
+* **401 Obehörig**: inträffar när begäran inte har giltig [autentisering](#authentication-and-authorization). Ett exempel kan vara en ogiltig åtkomsttoken eller en ogiltig API-nyckel.
 
-* **403 Förbjuden**: inträffar när begäran inte är giltig [auktorisation](#authentication-and-authorization). Ett exempel kan vara en giltig åtkomsttoken, men Adobe Developer Console-projektet (tekniskt konto) prenumererar inte på alla nödvändiga tjänster.
+* **403 Otillåten**: inträffar när begäran inte har giltig [auktorisering](#authentication-and-authorization). Ett exempel kan vara en giltig åtkomsttoken, men Adobe Developer Console-projektet (tekniskt konto) prenumererar inte på alla nödvändiga tjänster.
 
 * **429 För många begäranden**: inträffar när den här klienten eller på annat sätt överbelastar systemet. Klienter bör försöka igen med en [exponentiell säkerhetskopiering](https://en.wikipedia.org/wiki/Exponential_backoff). Brödtexten är tom.
 * **4xx-fel**: När det fanns något annat klientfel och registreringen misslyckades. Vanligtvis returneras ett JSON-svar som detta, men det garanteras inte för alla fel:
@@ -128,7 +128,7 @@ HTTP-statuskoderna är:
   }
   ```
 
-* **5xx-fel**: inträffar när något annat fel på serversidan inträffar och registreringen misslyckades. Vanligtvis returneras ett JSON-svar som detta, men det garanteras inte för alla fel:
+* **5xx-fel**: inträffar när det finns något annat fel på serversidan och registreringen misslyckades. Vanligtvis returneras ett JSON-svar som detta, men det garanteras inte för alla fel:
 
   ```json
   {
@@ -140,7 +140,7 @@ HTTP-statuskoderna är:
 
 ### Avregistrera förfrågan {#unregister-request}
 
-Detta API-anrop avregistrerar ett [!DNL Asset Compute] klient. När avregistreringen är klar går det inte längre att ringa `/process`. Om API-anropet för en oregistrerad klient eller en ännu inte registrerad klient används returneras en `404` fel.
+Detta API-anrop avregistrerar en [!DNL Asset Compute]-klient. När avregistreringen är klar går det inte längre att anropa `/process`. Om API-anropet för en oregistrerad klient eller en ännu inte registrerad klient används returneras felet `404`.
 
 | Parameter | Värde |
 |--------------------------|------------------------------------------------------|
@@ -155,8 +155,8 @@ Detta API-anrop avregistrerar ett [!DNL Asset Compute] klient. När avregistreri
 | Parameter | Värde |
 |-----------------------|------------------------------------------------------|
 | MIME-typ | `application/json` |
-| Sidhuvud `X-Request-Id` | Antingen samma som `X-Request-Id` begäranhuvud eller en unikt genererad rubrik. Används för att identifiera förfrågningar mellan system eller supportförfrågningar. |
-| Svarstext | Ett JSON-objekt med `ok` och `requestId` fält. |
+| Sidhuvud `X-Request-Id` | Antingen samma som begärandehuvudet `X-Request-Id` eller en unikt genererad. Används för att identifiera förfrågningar mellan system eller supportförfrågningar. |
+| Svarstext | Ett JSON-objekt med fälten `ok` och `requestId`. |
 
 Statuskoderna är:
 
@@ -169,11 +169,11 @@ Statuskoderna är:
   }
   ```
 
-* **401 Obehörig**: inträffar när begäran inte är giltig [autentisering](#authentication-and-authorization). Ett exempel kan vara en ogiltig åtkomsttoken eller en ogiltig API-nyckel.
+* **401 Obehörig**: inträffar när begäran inte har giltig [autentisering](#authentication-and-authorization). Ett exempel kan vara en ogiltig åtkomsttoken eller en ogiltig API-nyckel.
 
-* **403 Förbjuden**: inträffar när begäran inte är giltig [auktorisation](#authentication-and-authorization). Ett exempel kan vara en giltig åtkomsttoken, men Adobe Developer Console-projektet (tekniskt konto) prenumererar inte på alla nödvändiga tjänster.
+* **403 Otillåten**: inträffar när begäran inte har giltig [auktorisering](#authentication-and-authorization). Ett exempel kan vara en giltig åtkomsttoken, men Adobe Developer Console-projektet (tekniskt konto) prenumererar inte på alla nödvändiga tjänster.
 
-* **404 Hittades inte**: Den här statusen visas när de angivna autentiseringsuppgifterna är oregistrerade eller ogiltiga.
+* **404 Det gick inte att hitta**: Den här statusen visas när de angivna autentiseringsuppgifterna är oregistrerade eller ogiltiga.
 
   ```json
   {
@@ -184,7 +184,7 @@ Statuskoderna är:
 
 * **429 För många begäranden**: inträffar när systemet är överbelastat. Klienter bör försöka igen med en [exponentiell säkerhetskopiering](https://en.wikipedia.org/wiki/Exponential_backoff). Brödtexten är tom.
 
-* **4xx-fel**: inträffar när något annat klientfel inträffar och avregistreringen misslyckades. Vanligtvis returneras ett JSON-svar som detta, men det garanteras inte för alla fel:
+* **4xx-fel**: inträffar när det finns något annat klientfel och avregistreringen misslyckades. Vanligtvis returneras ett JSON-svar som detta, men det garanteras inte för alla fel:
 
   ```json
   {
@@ -194,7 +194,7 @@ Statuskoderna är:
   }
   ```
 
-* **5xx-fel**: inträffar när något annat fel på serversidan inträffar och registreringen misslyckades. Vanligtvis returneras ett JSON-svar som detta, men det garanteras inte för alla fel:
+* **5xx-fel**: inträffar när det finns något annat fel på serversidan och registreringen misslyckades. Vanligtvis returneras ett JSON-svar som detta, men det garanteras inte för alla fel:
 
   ```json
   {
@@ -206,9 +206,9 @@ Statuskoderna är:
 
 ## Bearbeta begäran {#process-request}
 
-The `process` -åtgärden skickar ett jobb som omvandlar en källresurs till flera återgivningar, baserat på instruktionerna i begäran. Meddelanden om slutförande (händelsetyp) `rendition_created`) eller andra fel (händelsetyp `rendition_failed`) skickas till en händelsejournal som måste hämtas med [`/register`](#register) en gång innan du gör något antal `/process` förfrågningar. Felaktigt utformade begäranden misslyckas omedelbart med 400-felkod.
+Åtgärden `process` skickar ett jobb som omvandlar en källresurs till flera återgivningar, baserat på instruktionerna i begäran. Meddelanden om slutförande (händelsetyp `rendition_created`) eller eventuella fel (händelsetyp `rendition_failed`) skickas till en händelseljournal som måste hämtas med [`/register`](#register) en gång innan du kan göra ett antal `/process`-begäranden. Felaktigt utformade begäranden misslyckas omedelbart med 400-felkod.
 
-Binärfiler refereras med URL:er, som försignerade URL:er för Amazon AWS S3 eller Azure Blob Storage SAS-URL:er. Används för att läsa `source` tillgång (`GET` URL:er) och skriva återgivningarna (`PUT` URL:er). Klienten ansvarar för att generera dessa försignerade URL:er.
+Binärfiler refereras med URL:er, som försignerade URL:er för Amazon AWS S3 eller Azure Blob Storage SAS-URL:er. Används för att både läsa `source`-resursen (`GET` URL:er) och skriva återgivningarna (`PUT` URL:er). Klienten ansvarar för att generera dessa försignerade URL:er.
 
 | Parameter | Värde |
 |--------------------------|------------------------------------------------------|
@@ -235,10 +235,10 @@ De tillgängliga fälten är:
 | Namn | Typ | Beskrivning | Exempel |
 |--------------|----------|-------------|---------|
 | `source` | `string` | URL för källresursen som bearbetas. Valfritt, baserat på begärt återgivningsformat (till exempel `fmt=zip`). | `"http://example.com/image.jpg"` |
-| `source` | `object` | Beskriver källresursen som bearbetas. Se beskrivning av [Source objektfält](#source-object-fields) nedan. Valfritt baserat på begärt återgivningsformat (till exempel `fmt=zip`). | `{"url": "http://example.com/image.jpg", "mimeType": "image/jpeg" }` |
-| `renditions` | `array` | Återgivningar att generera från källfilen. Varje återgivningsobjekt stöder [återgivningsinstruktion](#rendition-instructions). Obligatoriskt. | `[{ "target": "https://....", "fmt": "png" }]` |
+| `source` | `object` | Beskriver källresursen som bearbetas. Se beskrivningen av [Source-objektfält](#source-object-fields) nedan. Valfritt baserat på begärt återgivningsformat (till exempel `fmt=zip`). | `{"url": "http://example.com/image.jpg", "mimeType": "image/jpeg" }` |
+| `renditions` | `array` | Återgivningar att generera från källfilen. Varje återgivningsobjekt har stöd för en [återgivningsinstruktion](#rendition-instructions). Obligatoriskt. | `[{ "target": "https://....", "fmt": "png" }]` |
 
-The `source` kan vara en `<string>` som ses som en URL eller som kan vara en `<object>` med ytterligare ett fält. Följande varianter är lika:
+`source` kan antingen vara en `<string>` som ses som en URL eller en `<object>` med ett extra fält. Följande varianter är lika:
 
 ```json
 "source": "http://example.com/image.jpg"
@@ -255,11 +255,11 @@ The `source` kan vara en `<string>` som ses som en URL eller som kan vara en `<o
 | Namn | Typ | Beskrivning | Exempel |
 |-----------|----------|-------------|---------|
 | `url` | `string` | URL för källresursen som ska bearbetas. Obligatoriskt. | `"http://example.com/image.jpg"` |
-| `name` | `string` | Source resursfilnamn. Ett filtillägg i namnet kan användas om ingen MIME-typ identifieras. Den har prioritet över det filnamn som anges i URL-sökvägen. Och det har prioritet framför filnamnet i `content-disposition` den binära resursens huvud. Standardvärdet är &quot;file&quot;. | `"image.jpg"` |
-| `size` | `number` | Source filstorlek i byte. Har företräde framför `content-length` den binära resursens huvud. | `10234` |
-| `mimetype` | `string` | MIME-typ för Source-resursfil. Har företräde framför `content-type` den binära resursens huvud. | `"image/jpeg"` |
+| `name` | `string` | Source resursfilnamn. Ett filtillägg i namnet kan användas om ingen MIME-typ identifieras. Den har prioritet över det filnamn som anges i URL-sökvägen. Den har dessutom prioritet över filnamnet i `content-disposition`-huvudet för den binära resursen. Standardvärdet är &quot;file&quot;. | `"image.jpg"` |
+| `size` | `number` | Source filstorlek i byte. Prioriterar över `content-length` huvud för den binära resursen. | `10234` |
+| `mimetype` | `string` | MIME-typ för Source-resursfil. Prioriterar huvuden `content-type` för den binära resursen. | `"image/jpeg"` |
 
-### En fullständig `process` exempel på begäran {#complete-process-request-example}
+### Ett fullständigt exempel på `process`-begäran {#complete-process-request-example}
 
 ```json
 {
@@ -290,17 +290,17 @@ The `source` kan vara en `<string>` som ses som en URL eller som kan vara en `<o
 
 ## Processsvar {#process-response}
 
-The `/process` begäran returneras omedelbart om den lyckades eller misslyckades baserat på den grundläggande begäran-valideringen. Faktisk bearbetning av resurser sker asynkront.
+`/process`-begäran returneras omedelbart med ett lyckat eller misslyckat svar baserat på den grundläggande begärandevalideringen. Faktisk bearbetning av resurser sker asynkront.
 
 | Parameter | Värde |
 |-----------------------|------------------------------------------------------|
 | MIME-typ | `application/json` |
-| Sidhuvud `X-Request-Id` | Antingen samma som `X-Request-Id` begäranhuvud eller en unikt genererad rubrik. Används för att identifiera förfrågningar mellan system eller supportförfrågningar. |
-| Svarstext | Ett JSON-objekt med `ok` och `requestId` fält. |
+| Sidhuvud `X-Request-Id` | Antingen samma som begärandehuvudet `X-Request-Id` eller en unikt genererad. Används för att identifiera förfrågningar mellan system eller supportförfrågningar. |
+| Svarstext | Ett JSON-objekt med fälten `ok` och `requestId`. |
 
 Statuskoder:
 
-* **200 lyckades**: Om begäran har skickats Svar JSON innehåller `"ok": true`:
+* **200 lyckades**: Om begäran skickades utan fel. Svar-JSON innehåller `"ok": true`:
 
   ```json
   {
@@ -309,7 +309,7 @@ Statuskoder:
   }
   ```
 
-* **400 Ogiltig begäran**: Om begäran är felaktigt strukturerad, till exempel om den saknar obligatoriska fält i JSON-nyttolasten. Svar JSON innehåller `"ok": false`:
+* **400 Ogiltig begäran**: Om begäran är felaktigt strukturerad, till exempel om den saknar obligatoriska fält i JSON-nyttolasten. Svar-JSON innehåller `"ok": false`:
 
   ```json
   {
@@ -319,9 +319,9 @@ Statuskoder:
   }
   ```
 
-* **401 Obehörig**: När begäran inte är giltig [autentisering](#authentication-and-authorization). Ett exempel kan vara en ogiltig åtkomsttoken eller en ogiltig API-nyckel.
-* **403 Förbjuden**: När begäran inte är giltig [auktorisation](#authentication-and-authorization). Ett exempel kan vara en giltig åtkomsttoken, men Adobe Developer Console-projektet (tekniskt konto) prenumererar inte på alla nödvändiga tjänster.
-* **429 För många begäranden**: Inträffar när systemet överbelastas, antingen på grund av den aktuella klienten eller på grund av den totala efterfrågan. Klienterna kan försöka igen med en [exponentiell säkerhetskopiering](https://en.wikipedia.org/wiki/Exponential_backoff). Brödtexten är tom.
+* **401 Obehörig**: När begäran inte har giltig [autentisering](#authentication-and-authorization). Ett exempel kan vara en ogiltig åtkomsttoken eller en ogiltig API-nyckel.
+* **403 Otillåten**: När begäran inte har giltig [auktorisering](#authentication-and-authorization). Ett exempel kan vara en giltig åtkomsttoken, men Adobe Developer Console-projektet (tekniskt konto) prenumererar inte på alla nödvändiga tjänster.
+* **429 För många begäranden**: Inträffar när systemet överbelastas, antingen på grund av den här klienten eller på grund av den totala efterfrågan. Klienterna kan försöka igen med en [exponentiell säkerhetskopiering](https://en.wikipedia.org/wiki/Exponential_backoff). Brödtexten är tom.
 * **4xx-fel**: När det fanns något annat klientfel. Vanligtvis returneras ett JSON-svar som detta, men det garanteras inte för alla fel:
 
   ```json
@@ -342,63 +342,63 @@ Statuskoder:
   }
   ```
 
-De flesta klienter vill troligen försöka utföra samma begäran igen med [exponentiell säkerhetskopiering](https://en.wikipedia.org/wiki/Exponential_backoff) om något fel *utom* konfigurationsproblem som 401 eller 403, eller ogiltiga begäranden som 400. Förutom en vanlig hastighetsbegränsning med 429 svar kan ett tillfälligt avbrott eller en tillfällig begränsning leda till 5 x fel. Det vore då tillrådligt att försöka igen efter en viss tid.
+De flesta klienter vill antagligen försöka utföra samma begäran igen med [exponentiell säkerhetskopiering](https://en.wikipedia.org/wiki/Exponential_backoff) vid ett fel *förutom* konfigurationsproblem som 401 eller 403, eller ogiltiga begäranden som 400. Förutom en vanlig hastighetsbegränsning med 429 svar kan ett tillfälligt avbrott eller en tillfällig begränsning leda till 5 x fel. Det vore då tillrådligt att försöka igen efter en viss tid.
 
-Alla JSON-svar (om sådana finns) innehåller `requestId`, vilket är samma värde som `X-Request-Id` header. Adobe rekommenderar att du läser från sidhuvudet eftersom det alltid finns. The `requestId` returneras också i alla händelser som rör bearbetning av begäranden som `requestId`. Klienterna får inte anta något om formatet för den här strängen. Det är en ogenomskinlig strängidentifierare.
+Alla JSON-svar (om sådana finns) innehåller `requestId`, som är samma värde som huvudet `X-Request-Id`. Adobe rekommenderar att du läser från sidhuvudet eftersom det alltid finns. `requestId` returneras också i alla händelser som rör bearbetning av begäranden som `requestId`. Klienterna får inte anta något om formatet för den här strängen. Det är en ogenomskinlig strängidentifierare.
 
 ## Anmäl dig till efterbearbetning {#opt-in-to-post-processing}
 
-The [Asset compute SDK](https://github.com/adobe/asset-compute-sdk) har stöd för en uppsättning grundläggande alternativ för efterbearbetning av bilder. Anpassade arbetare kan uttryckligen välja att efterbearbeta genom att ställa in fältet `postProcess` på återgivningsobjektet till `true`.
+[Asset Compute SDK](https://github.com/adobe/asset-compute-sdk) har stöd för en uppsättning grundläggande alternativ för efterbearbetning av bilder. Anpassade arbetare kan uttryckligen välja att efterbearbeta genom att ange fältet `postProcess` för återgivningsobjektet till `true`.
 
 De användningsområden som stöds är:
 
-* Beskärning är en återgivning av en rektangel vars gränser definieras genom crop.w, crop.h, crop.x och crop.y. Beskärningsinformationen anges i återgivningsobjektets `instructions.crop` fält.
-* Ändra storlek på bilder med bredden, höjden eller båda. The `instructions.width` och `instructions.height` definierar det i återgivningsobjektet. Om du bara vill ändra storlek med bredd eller höjd anger du bara ett värde. Beräkningstjänsten bevarar proportionerna.
-* Ange kvaliteten för en JPEG-bild. The `instructions.quality` definierar det i återgivningsobjektet. En kvalitetsnivå på 100 representerar den högsta kvaliteten, medan lägre tal innebär en kvalitetsförsämring.
-* Skapa sammanflätade bilder. The `instructions.interlace` definierar det i återgivningsobjektet.
-* Ställ in DPI för att justera den återgivna storleken för DPI-publicering genom att justera den skala som används på pixlarna. The `instructions.dpi` definierar den i återgivningsobjektet för att ändra dpi-upplösning. Om du vill ändra storlek på bilden så att den får samma storlek med en annan upplösning använder du `convertToDpi` instruktioner.
-* Ändra bildens storlek så att dess återgivna bredd eller höjd förblir densamma som originalet vid den angivna målupplösningen (DPI). The `instructions.convertToDpi` definierar det i återgivningsobjektet.
+* Beskärning är en återgivning av en rektangel vars gränser definieras genom crop.w, crop.h, crop.x och crop.y. Beskärningsinformationen anges i återgivningsobjektets `instructions.crop`-fält.
+* Ändra storlek på bilder med bredden, höjden eller båda. `instructions.width` och `instructions.height` definierar det i återgivningsobjektet. Om du bara vill ändra storlek med bredd eller höjd anger du bara ett värde. Beräkningstjänsten bevarar proportionerna.
+* Ange kvaliteten för en JPEG-bild. `instructions.quality` definierar det i återgivningsobjektet. En kvalitetsnivå på 100 representerar den högsta kvaliteten, medan lägre tal innebär en kvalitetsförsämring.
+* Skapa sammanflätade bilder. `instructions.interlace` definierar det i återgivningsobjektet.
+* Ställ in DPI för att justera den återgivna storleken för DPI-publicering genom att justera den skala som används på pixlarna. `instructions.dpi` definierar den i återgivningsobjektet för att ändra dpi-upplösning. Om du vill ändra storlek på bilden så att den får samma storlek med en annan upplösning använder du `convertToDpi`-instruktionerna.
+* Ändra bildens storlek så att dess återgivna bredd eller höjd förblir densamma som originalet vid den angivna målupplösningen (DPI). `instructions.convertToDpi` definierar det i återgivningsobjektet.
 
 ## Vattenstämpelresurser {#add-watermark}
 
-The [Asset compute SDK](https://github.com/adobe/asset-compute-sdk) har stöd för att lägga till en vattenstämpel i PNG-, JPEG, TIFF och GIF. Vattenstämpeln läggs till enligt återgivningsinstruktionerna i `watermark` objekt på återgivningen.
+[Asset Compute SDK](https://github.com/adobe/asset-compute-sdk) har stöd för att lägga till en vattenstämpel i bildfilerna PNG, JPEG, TIFF och GIF. Vattenstämpeln läggs till efter återgivningsinstruktionerna i objektet `watermark` på återgivningen.
 
-Vattenstämplar görs under efterbearbetningen av återgivningen. För vattenstämpelresurser, den anpassade arbetaren [går vidare till efterbearbetning](#opt-in-to-post-processing) genom att ställa in fältet `postProcess` på återgivningsobjektet till `true`. Om arbetaren inte väljer att delta används inte vattenstämplar, även om vattenstämpelobjektet har angetts för återgivningsobjektet i begäran.
+Vattenstämplar görs under efterbearbetningen av återgivningen. För vattenstämpelresurser väljer den anpassade arbetaren [efterbearbetning](#opt-in-to-post-processing) genom att ange fältet `postProcess` för återgivningsobjektet till `true`. Om arbetaren inte väljer att delta används inte vattenstämplar, även om vattenstämpelobjektet har angetts för återgivningsobjektet i begäran.
 
 ## Återgivningsinstruktioner {#rendition-instructions}
 
-Följande alternativ är tillgängliga för `renditions` array in [`/process`](#process-request).
+Följande är tillgängliga alternativ för arrayen `renditions` i [`/process`](#process-request).
 
 ### Vanliga fält {#common-fields}
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
-| `fmt` | `string` | Målformatet för återgivningar kan också `text` för textextrahering och `xmp` för att extrahera XMP metadata som xml. Se [format som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support) | `png` |
-| `worker` | `string` | URL för en [anpassat program](develop-custom-application.md). Måste vara en `https://` URL. Om det här fältet finns skapar ett anpassat program återgivningen. Alla andra inställda återgivningsfält används sedan i det anpassade programmet. | `"https://1234.adobeioruntime.net`<br>`/api/v1/web`<br>`/example-custom-worker-master/worker"` |
+| `fmt` | `string` | Målformatet för återgivningar kan också vara `text` för textrahering och `xmp` för att extrahera XMP metadata som xml. Se [format som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support) | `png` |
+| `worker` | `string` | URL för ett [anpassat program](develop-custom-application.md). Måste vara en `https://`-URL. Om det här fältet finns skapar ett anpassat program återgivningen. Alla andra inställda återgivningsfält används sedan i det anpassade programmet. | `"https://1234.adobeioruntime.net`<br>`/api/v1/web`<br>`/example-custom-worker-master/worker"` |
 | `target` | `string` | Den URL som den genererade återgivningen ska överföras till med HTTP PUT. | `http://w.com/img.jpg` |
-| `target` | `object` | Multipart-försignerad URL-överföringsinformation för den genererade återgivningen. Den här informationen är avsedd för [AEM/Oak Direct Binary Upload](https://jackrabbit.apache.org/oak/docs/features/direct-binary-access.html) med det här [uppladdning av flera delar, beteende](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/api/binary/BinaryUpload.html).<br>Fält:<ul><li>`urls`: array med strängar, en för varje försignerad del-URL</li><li>`minPartSize`: den minsta storleken som ska användas för en del = url</li><li>`maxPartSize`: den största storlek som kan användas för en del = url</li></ul> | `{ "urls": [ "https://part1...", "https://part2..." ], "minPartSize": 10000, "maxPartSize": 100000 }` |
+| `target` | `object` | Multipart-försignerad URL-överföringsinformation för den genererade återgivningen. Den här informationen gäller för [AEM/Oak Direct Binary Upload](https://jackrabbit.apache.org/oak/docs/features/direct-binary-access.html) med det här [multipart-överföringsbeteendet](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/api/binary/BinaryUpload.html).<br>Fält:<ul><li>`urls`: strängmatris, en för varje försignerad del-URL</li><li>`minPartSize`: den minsta storleken som ska användas för en del = url</li><li>`maxPartSize`: den största storleken som kan användas för en del = url</li></ul> | `{ "urls": [ "https://part1...", "https://part2..." ], "minPartSize": 10000, "maxPartSize": 100000 }` |
 | `userData` | `object` | Valfritt. Klienten styr det reserverade utrymmet och skickar det vidare på samma sätt som renderingshändelser. Gör att en klient kan lägga till anpassad information för att identifiera återgivningshändelser. Den får inte ändras eller förlitas i anpassade program, eftersom kunderna kan ändra den när som helst. | `{ ... }` |
 
 ### Återgivningsspecifika fält {#rendition-specific-fields}
 
-En lista över de filformat som stöds finns i [filformat](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
+En lista över de filformat som stöds finns i [Filformat som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
-| `*` | `*` | Avancerade, anpassade fält kan läggas till som [anpassat program](develop-custom-application.md) förstår. | |
-| `embedBinaryLimit` | `number` i byte | När filstorleken för återgivningen är mindre än det angivna värdet inkluderas den i händelsen som skickas när återgivningen har skapats. Den största tillåtna storleken för inbäddning är 32 kB (32 x 1 024 byte). Om en återgivning är större än `embedBinaryLimit` den placeras på en plats i molnlagringen och är inte inbäddad i händelsen. | `3276` |
+| `*` | `*` | Avancerade, anpassade fält kan läggas till som ett [anpassat program](develop-custom-application.md) förstår. | |
+| `embedBinaryLimit` | `number` i byte | När filstorleken för återgivningen är mindre än det angivna värdet inkluderas den i händelsen som skickas när återgivningen har skapats. Den största tillåtna storleken för inbäddning är 32 kB (32 x 1 024 byte). Om en återgivning är större än `embedBinaryLimit`-gränsen placeras den på en plats i molnlagringen och bäddas inte in i händelsen. | `3276` |
 | `width` | `number` | Bredd i pixlar. endast för bildåtergivningar. | `200` |
 | `height` | `number` | Höjd i pixlar. endast för bildåtergivningar. | `200` |
-|                   |          | Proportionerna behålls alltid om: <ul> <li> Båda `width` och `height` anges så anpassas bilden till storleken samtidigt som proportionerna bevaras </li><li> Om bara `width` eller `height` anges används motsvarande dimension för den resulterande bilden, men proportionerna behålls</li><li> If `width` eller `height` anges inte används den ursprungliga bildens pixelstorlek. Det beror på källtypen. För vissa format, till exempel PDF, används en standardstorlek. Det kan finnas en maximal storleksgräns.</li></ul> | |
+|                   |          | Proportionerna behålls alltid om: <ul> <li> Både `width` och `height` har angetts och bilden får plats i storleken samtidigt som proportionerna behålls </li><li> Om bara `width` eller `height` anges används motsvarande dimension för den resulterande bilden, samtidigt som proportionerna behålls</li><li> Om `width` eller `height` inte anges används den ursprungliga bildens pixelstorlek. Det beror på källtypen. För vissa format, till exempel PDF, används en standardstorlek. Det kan finnas en maximal storleksgräns.</li></ul> | |
 | `quality` | `number` | Ange jpeg-kvalitet i intervallet `1` till `100`. Gäller endast för bildåtergivningar. | `90` |
 | `xmp` | `string` | Används endast vid XMP av metadatatillbakaskrivning, är det base64-kodade XMP att skriva tillbaka till den angivna återgivningen. | |
-| `interlace` | `bool` | Skapa sammanflätad PNG, GIF eller progressiv JPEG genom att ställa in den på `true`. Det påverkar inte andra filformat. | |
-| `jpegSize` | `number` | Ungefärlig storlek på filen JPEG i byte. Den åsidosätter alla `quality` inställning. Det påverkar inte andra format. | |
+| `interlace` | `bool` | Skapa sammanflätad PNG, GIF eller progressiv JPEG genom att ange den till `true`. Det påverkar inte andra filformat. | |
+| `jpegSize` | `number` | Ungefärlig storlek på filen JPEG i byte. Den åsidosätter alla `quality`-inställningar. Det påverkar inte andra format. | |
 | `dpi` | `number` eller `object` | Ange x- och y-DPI. För enkelhetens skull kan den också anges till ett enda tal, som används för både x och y. Det påverkar inte själva bilden. | `96` eller `{ xdpi: 96, ydpi: 96 }` |
 | `convertToDpi` | `number` eller `object` | x- och y-DPI samplar om värden med bibehållen fysisk storlek. För enkelhetens skull kan den också anges till ett enda tal, som används för både x och y. | `96` eller `{ xdpi: 96, ydpi: 96 }` |
-| `files` | `array` | Lista över filer som ska inkluderas i ZIP-arkivet (`fmt=zip`). Varje post kan antingen vara en URL-sträng eller ett objekt med fälten:<ul><li>`url`: URL för att hämta fil</li><li>`path`: Lagra filen under den här sökvägen i ZIP</li></ul> | `[{ "url": "https://host/asset.jpg", "path": "folder/location/asset.jpg" }]` |
-| `duplicate` | `string` | Dupliceringshantering för ZIP-arkiv (`fmt=zip`). Som standard genererar flera filer som lagras under samma sökväg i ZIP ett fel. Inställning `duplicate` till `ignore` resulterar bara i den första resursen som ska lagras och resten ska ignoreras. | `ignore` |
-| `watermark` | `object` | Innehåller instruktioner om [vattenstämpel](#watermark-specific-fields). |  |
+| `files` | `array` | Lista över filer som ska inkluderas i ZIP-arkivet (`fmt=zip`). Varje post kan antingen vara en URL-sträng eller ett objekt med fälten:<ul><li>`url`: URL för hämtning av fil</li><li>`path`: Lagra filen under den här sökvägen i ZIP</li></ul> | `[{ "url": "https://host/asset.jpg", "path": "folder/location/asset.jpg" }]` |
+| `duplicate` | `string` | Duplicerad hantering för ZIP-arkiv (`fmt=zip`). Som standard genererar flera filer som lagras under samma sökväg i ZIP ett fel. Om `duplicate` anges till `ignore` sparas bara den första resursen och resten ignoreras. | `ignore` |
+| `watermark` | `object` | Innehåller instruktioner om [vattenstämpeln](#watermark-specific-fields). |  |
 
 ### Vattenstämpelsspecifika fält {#watermark-specific-fields}
 
@@ -406,14 +406,14 @@ PNG-formatet används som vattenstämpel.
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
-| `scale` | `number` | Vattenstämpelns skala, mellan `0.0` och `1.0`. `1.0` innebär att vattenstämpeln har sin ursprungliga skala (1:1) och de lägre värdena minskar storleken på vattenstämpeln. | Värdet för `0.5` betyder hälften av den ursprungliga storleken. |
+| `scale` | `number` | Skala för vattenstämpeln, mellan `0.0` och `1.0`. `1.0` betyder att vattenstämpeln har sin ursprungliga skala (1:1) och de lägre värdena minskar storleken på vattenstämpeln. | Värdet `0.5` betyder halva den ursprungliga storleken. |
 | `image` | `url` | URL till PNG-filen som ska användas för vattenstämpel. | |
 
 ## Asynkrona händelser {#asynchronous-events}
 
-När bearbetningen av en återgivning är klar eller när ett fel inträffar, skickas en händelse till Adobe [!DNL `I/O Events Journal`]. Klienterna måste lyssna på den journal-URL som tillhandahålls via [`/register`](#register). Journalsvaret innehåller en `event` array som består av ett objekt för varje händelse, varav `event` -fältet innehåller den faktiska händelsenyttolasten.
+När bearbetningen av en återgivning är klar eller när ett fel inträffar, skickas en händelse till Adobe [!DNL `I/O Events Journal`]. Klienterna måste lyssna på den journal-URL som tillhandahålls via [`/register`](#register). Journalsvaret innehåller en `event`-matris som består av ett objekt för varje händelse, varav fältet `event` innehåller den faktiska händelsens nyttolast.
 
-Adobe [!DNL `I/O Events`] type för alla händelser i [!DNL Asset Compute Service] är `asset_compute`. Journalen prenumererar automatiskt på endast den här händelsetypen och det finns inga ytterligare krav på att filtrera baserat på [!DNL Adobe Developer] Typ av händelse. Tjänstspecifika händelsetyper är tillgängliga i `type` händelseegenskap.
+Adobe [!DNL `I/O Events`]-typen för alla händelser i [!DNL Asset Compute Service] är `asset_compute`. Journalen prenumererar automatiskt på endast den här händelsetypen och det finns inget ytterligare krav på att filtrera baserat på händelsetypen [!DNL Adobe Developer]. Tjänstspecifika händelsetyper är tillgängliga i egenskapen `type` för händelsen.
 
 ### Händelsetyper {#event-types}
 
@@ -426,13 +426,13 @@ Adobe [!DNL `I/O Events`] type för alla händelser i [!DNL Asset Compute Servic
 
 | Attribut | Typ | Händelse | Beskrivning |
 |-------------|----------|---------------|-------------|
-| `date` | `string` | `*` | Tidsstämpel när händelsen skickades i förenklat utökat [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) format, enligt definition i JavaScript [Date.toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString). |
-| `requestId` | `string` | `*` | ID för den ursprungliga begäran till `/process`, samma som `X-Request-Id` header. |
-| `source` | `object` | `*` | The `source` i `/process` begäran. |
-| `userData` | `object` | `*` | The `userData` återgivningen från `/process` request if set. |
-| `rendition` | `object` | `rendition_*` | Motsvarande återgivningsobjekt skickades `/process`. |
-| `metadata` | `object` | `rendition_created` | The [metadata](#metadata) återgivningens egenskaper. |
-| `errorReason` | `string` | `rendition_failed` | Återgivningsfel [orsak](#error-reasons) i förekommande fall. |
+| `date` | `string` | `*` | Tidsstämpel när händelsen skickades i förenklat utökat [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601)-format, enligt definition i JavaScript [Date.toISOString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString). |
+| `requestId` | `string` | `*` | ID för den ursprungliga begäran till `/process`, samma som för `X-Request-Id`. |
+| `source` | `object` | `*` | `source` för `/process`-begäran. |
+| `userData` | `object` | `*` | `userData` för återgivningen från `/process`-begäran om den anges. |
+| `rendition` | `object` | `rendition_*` | Motsvarande återgivningsobjekt skickades i `/process`. |
+| `metadata` | `object` | `rendition_created` | Återgivningens [metadata](#metadata)-egenskaper. |
+| `errorReason` | `string` | `rendition_failed` | Återgivningsfel: [orsak](#error-reasons), om sådan finns. |
 | `errorMessage` | `string` | `rendition_failed` | Texten med mer information om eventuella återgivningsfel. |
 
 ### Metadata {#metadata}
@@ -453,5 +453,5 @@ Adobe [!DNL `I/O Events`] type för alla händelser i [!DNL Asset Compute Servic
 | `RenditionFormatUnsupported` | Det begärda återgivningsformatet stöds inte för den angivna källan. |
 | `SourceUnsupported` | Den specifika källan stöds inte trots att typen stöds. |
 | `SourceCorrupt` | Källdata är skadade. Den innehåller tomma filer. |
-| `RenditionTooLarge` | Det gick inte att överföra återgivningen med de försignerade URL:erna som anges i `target`. Den faktiska återgivningsstorleken är tillgänglig som metadata i `repo:size` och används av klienten för att bearbeta återgivningen med rätt antal försignerade URL:er. |
+| `RenditionTooLarge` | Det gick inte att överföra återgivningen med de försignerade URL:erna i `target`. Den faktiska återgivningsstorleken är tillgänglig som metadata i `repo:size` och används av klienten för att bearbeta återgivningen med rätt antal försignerade URL:er. |
 | `GenericError` | Andra oväntade fel. |
