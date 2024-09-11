@@ -2,9 +2,9 @@
 title: Utveckla för  [!DNL Asset Compute Service]
 description: Skapa anpassade program med  [!DNL Asset Compute Service].
 exl-id: a0c59752-564b-4bb6-9833-ab7c58a7f38e
-source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
+source-git-commit: db38b9dc27505aa7e04cf58a646005fc2e0e8782
 workflow-type: tm+mt
-source-wordcount: '1507'
+source-wordcount: '1542'
 ht-degree: 0%
 
 ---
@@ -96,6 +96,10 @@ Infoga de efterföljande autentiseringsuppgifterna för utvecklingsverktyget i f
    ```conf
    ASSET_COMPUTE_PRIVATE_KEY_FILE_PATH=
    ```
+
+   >[!NOTE]
+   >
+   >JWT är föråldrat och privat nyckel är inte tillgängligt för hämtning. Observera att anpassade arbetare som skapats med OAuth kan distribueras, men utvecklingsverktyg fungerar inte när vi uppdaterar testverktygen.
 
 1. Hämta filen från Adobe Developer Console. Gå till projektets rot och klicka på &quot;Hämta alla&quot; i det övre högra hörnet. Filen hämtas med `<namespace>-<workspace>.json` som filnamn. Gör något av följande:
 

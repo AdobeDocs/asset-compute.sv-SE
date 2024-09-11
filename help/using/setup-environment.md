@@ -2,9 +2,9 @@
 title: Ange den utvecklingsmiljö som krävs för  [!DNL Asset Compute Service]
 description: Konfigurera utvecklarmiljön för  [!DNL Asset Compute Service]  för att börja skapa och testa anpassad kod.
 exl-id: 91c12889-01d8-4757-9bdd-f73c491cd9d5
-source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
+source-git-commit: db38b9dc27505aa7e04cf58a646005fc2e0e8782
 workflow-type: tm+mt
-source-wordcount: '324'
+source-wordcount: '359'
 ht-degree: 0%
 
 ---
@@ -43,6 +43,10 @@ Om du vill skapa en konfiguration som gör att du kan utveckla för [!DNL Asset 
 1. [Skapa ett App Builder-projekt](https://developer.adobe.com/app-builder/docs/getting_started/first_app/). Klicka på **[!UICONTROL Skapa nytt projekt]** > **[!UICONTROL Projekt från mall]**. Välj App Builder. Det skapar ett nytt App Builder-projekt med två arbetsytor: `Production` och `Stage`. Lägg till ytterligare arbetsytor, till exempel `Development`, efter behov.
 
 1. I App Builder Project väljer du en arbetsyta och prenumererar på de tjänster som behövs för Asset Compute. Klicka på **Lägg till i projekt** > **API** och lägg till `Asset Compute`-, `IO Events`- och `IO Events Management`-tjänster. När du lägger till det första API:t uppmanas du att skapa en privat nyckel. Spara informationen på datorn när du behöver den här nyckeln för att testa det anpassade programmet med utvecklingsverktyget.
+
+   >[!NOTE]
+   >
+   >JWT är föråldrat och privat nyckel är inte tillgängligt för hämtning. Observera att anpassade arbetare som skapats med OAuth kan distribueras, men utvecklingsverktyg fungerar inte när vi uppdaterar testverktygen.
 
 ## Nästa steg {#next-step}
 
