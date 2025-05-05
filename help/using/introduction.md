@@ -19,13 +19,13 @@ Utvecklare kan plugin-program för anpassade resurser (kallas även anpassade ar
 
 >[!NOTE]
 >
->För närvarande kan [!DNL Asset Compute Service] bara användas via [!DNL Experience Manager] som [!DNL Cloud Service]. Administratörer skapar bearbetningsprofiler som kan anropa [!DNL Asset Compute Service] för att skicka resurser för bearbetning. Se [Använda resursmikrotjänster och bearbetningsprofiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+>För närvarande kan [!DNL Asset Compute Service] bara användas via [!DNL Experience Manager] som [!DNL Cloud Service]. Administratörer skapar bearbetningsprofiler som kan anropa [!DNL Asset Compute Service] för att skicka resurser för bearbetning. Se [Använda resursmikrotjänster och bearbetningsprofiler](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 ## Användningsexempel som stöds av [!DNL Asset Compute Service] {#possible-use-cases-benefits}
 
 [!DNL Asset Compute Service] har stöd för ett fåtal vanliga användningsfall, t.ex. grundläggande bildbearbetning, programspecifika konverteringar i Adobe samt anpassade programskapande som hanterar komplexa affärskrav.
 
-Du kan använda webbtjänsten [!DNL Asset Compute] för att generera miniatyrbilder för olika filtyper, bildåtergivning med hög kvalitet för de [filformat som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support). Se [användningsfall som stöds via anpassad konfiguration](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+Du kan använda webbtjänsten [!DNL Asset Compute] för att generera miniatyrbilder för olika filtyper, bildåtergivning med hög kvalitet för de [filformat som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support). Se [användningsfall som stöds via anpassad konfiguration](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
@@ -44,9 +44,9 @@ Du kan använda webbtjänsten [!DNL Asset Compute] för att generera miniatyrbil
 
 >[!MORELIKETHIS]
 >
->* [Översikt över resursbearbetning med tillgångsmikrotjänster i [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview).
+>* [Översikt över resursbearbetning med tillgångsmikrotjänster i [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview).
 >* [Dokumentation för Adobe Developer App Builder](https://developer.adobe.com/app-builder/docs/overview).
->* [Filformat som stöds för bearbetning](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
+>* [Filformat som stöds för bearbetning](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support).
 
 <!-- **TBD:**
 * Clarify the service can only be used within AEM as Cloud Service. The docs provided as context for custom application developers. Not to be used as a standalone service.

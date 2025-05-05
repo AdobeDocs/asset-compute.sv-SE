@@ -15,7 +15,7 @@ Om du vill distribuera ditt program använder du kommandot [AIR-appdistribution]
 
 Använd kommandot [`aio app get-url`](https://github.com/adobe/aio-cli#aio-app-get-url-action) om du vill hämta samma URL utan att omdistribuera programmet.
 
-Använd URL:en i en [Bearbetningsprofil i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use) för att integrera ditt program med [!DNL Experience Manager] som en [!DNL Cloud Service].
+Använd URL:en i en [Bearbetningsprofil i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use) för att integrera ditt program med [!DNL Experience Manager] som en [!DNL Cloud Service].
 
 Kontrollera att ditt App Builder-projekt och din arbetsyta motsvarar [!DNL Experience Manager] som en [!DNL Cloud Service]-miljö där du vill använda åtgärden. Den har olika miljöer för utveckling, staging och produktion. Du kan verifiera miljön genom att kontrollera inloggningsuppgifterna för `AIO_runtime_*` som är definierade i ENV-filen i Adobe Developer App Builder-programmets rot. Om du till exempel vill distribuera till en `Stage`-arbetsyta har `AIO_runtime_namespace` formatet `xxxxxx_xxxxxxxxx_stage`. Om du vill integrera med [!DNL Experience Manager] som en [!DNL Cloud Service]-produktionsmiljö använder du program-URL:er från din Adobe Developer App Builder `Production`-arbetsyta.
 
@@ -25,4 +25,4 @@ Kontrollera att ditt App Builder-projekt och din arbetsyta motsvarar [!DNL Exper
 
 >[!MORELIKETHIS]
 >
->* [Förstå och hantera miljöer i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/implementing/using-cloud-manager/manage-environments).
+>* [Förstå och hantera miljöer i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/implementing/using-cloud-manager/manage-environments).

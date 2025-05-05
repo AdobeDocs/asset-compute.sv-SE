@@ -31,7 +31,7 @@ Undantag från den här regeln är versionsinformation där kända problem kan l
 
 Alla idéer du kan behöva förbättra dokumentationen är välkomna som bidrag. Kommentarer, problem och pull-förfrågningar är dock avsedda för *avgifter* endast. De ska inte besvara dina frågor om hur du använder produkten, implementerar projekt eller löser tekniska problem.
 
-Frågor om användning eller tekniska fel ska rapporteras via den normala supportprocessen via [[!DNL Experience Manager] Kundsupportportal](https://experienceleague.adobe.com/?support-solution=Experience+Manager#home) eller diskuteras i [[!DNL Experience Manager] community](https://experienceleaguecommunities.adobe.com/t5/adobe-experience-manager/ct-p/adobe-experience-manager-community).
+Frågor om användning eller tekniska fel ska rapporteras via den normala supportprocessen via [[!DNL Experience Manager] Kundsupportportal](https://experienceleague.adobe.com/sv?support-solution=Experience+Manager#home) eller diskuteras i [[!DNL Experience Manager] community](https://experienceleaguecommunities.adobe.com/t5/adobe-experience-manager/ct-p/adobe-experience-manager-community).
 
 ***Dokumentationsavgifter ersätter inte Adobe kundtjänst*** och alla sådana bidrag som söker svar på frågor som rör stöd avvisas.
 
