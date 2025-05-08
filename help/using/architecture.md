@@ -25,7 +25,7 @@ Arkitekturen bygger på följande:
 
 * Binär molnlagring innehåller de funktioner som krävs för att lagra och komma åt resursfiler och återgivningar individuellt, utan att fullständiga behörigheter krävs för lagringen, med hjälp av försignerade URL-referenser. Överföringsacceleration, CDN-cachning och samlokalisering av datorprogram med molnlagring ger optimal åtkomst till innehåll med låg latens. Både AWS- och Azure-moln stöds.
 
-![Arkitektur för Asset compute-tjänsten](assets/architecture-diagram.png)
+![Arkitektur för Asset Compute-tjänsten](assets/architecture-diagram.png)
 
 *Bild: Arkitekturen för [!DNL Asset Compute Service] och hur den integreras med [!DNL Experience Manager], lagringsutrymme och bearbetningsprogram.*
 

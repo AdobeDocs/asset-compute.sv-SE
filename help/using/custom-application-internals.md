@@ -19,7 +19,7 @@ Använd följande bild för att förstå hela arbetsflödet när en digital resu
 
 ## Registrering {#registration}
 
-Klienten måste anropa [`/register`](api.md#register) en gång före den första begäran till [`/process`](api.md#process-request) så att den kan ställa in och hämta journal-URL:en för att ta emot Adobe [!DNL I/O Events] -händelser för Adobe Asset compute.
+Klienten måste anropa [`/register`](api.md#register) en gång före den första begäran till [`/process`](api.md#process-request) så att den kan ställa in och hämta journal-URL:en för att ta emot Adobe [!DNL I/O Events] -händelser för Adobe Asset Compute.
 
 ```sh
 curl -X POST \
@@ -68,9 +68,9 @@ Nedan följer ett exempel på en anpassad begäran om programbearbetning.
 }
 ```
 
-[!DNL Asset Compute Service] skickar begäranden om anpassade programåtergivningar till det anpassade programmet. Den använder en HTTP-POST till den angivna program-URL:en, som är den skyddade webbåtgärds-URL:en från App Builder. Alla förfrågningar använder HTTPS-protokollet för att maximera datasäkerheten.
+[!DNL Asset Compute Service] skickar begäranden om anpassade programåtergivningar till det anpassade programmet. Den använder en HTTP POST till den angivna program-URL:en, som är den skyddade webbåtgärds-URL:en från App Builder. Alla förfrågningar använder HTTPS-protokollet för att maximera datasäkerheten.
 
-[Asset compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) som används av ett anpassat program hanterar HTTP-POSTENS begäran. Det hanterar också hämtning av källan, överföring av återgivningar, sändning av Adobe [!DNL I/O Events] och felhantering.
+[Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) som används av ett anpassat program hanterar HTTP POST-begäran. Det hanterar också hämtning av källan, överföring av återgivningar, sändning av Adobe [!DNL I/O Events] och felhantering.
 
 <!-- TBD: Add the application diagram. -->
 
@@ -96,13 +96,13 @@ exports.main = worker(async (source, rendition) => {
 
 ### Hämta källfiler {#download-source}
 
-Ett anpassat program hanterar bara lokala filer. [Asset compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) hanterar hämtningen av källfilen.
+Ett anpassat program hanterar bara lokala filer. [Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) hanterar nedladdningen av källfilen.
 
 ### Skapa återgivning {#rendition-creation}
 
 SDK anropar en asynkron [återgivningscallback-funktion](https://github.com/adobe/asset-compute-sdk#rendition-callback-for-worker-required) för varje återgivning.
 
-Callback-funktionen har åtkomst till objekten [source](https://github.com/adobe/asset-compute-sdk#source) och [rendition](https://github.com/adobe/asset-compute-sdk#rendition). `source.path` finns redan och är sökvägen till den lokala kopian av källfilen. `rendition.path` är sökvägen där den bearbetade återgivningen måste lagras. Om inte flaggan [disableSourceDownload](https://github.com/adobe/asset-compute-sdk#worker-options-optional) anges måste programmet använda exakt `rendition.path`. Annars kan SDK inte hitta eller identifiera återgivningsfilen och misslyckas.
+Callback-funktionen har åtkomst till objekten [source](https://github.com/adobe/asset-compute-sdk#source) och [rendition](https://github.com/adobe/asset-compute-sdk#rendition). `source.path` finns redan och är sökvägen till den lokala kopian av källfilen. `rendition.path` är sökvägen där den bearbetade återgivningen måste lagras. Om inte flaggan [disableSourceDownload](https://github.com/adobe/asset-compute-sdk#worker-options-optional) anges måste programmet använda exakt `rendition.path`. Annars kan inte SDK hitta eller identifiera återgivningsfilen och misslyckas.
 
 Den alltför enkla framställningen av exemplet görs för att illustrera och fokusera på anatomin i ett anpassat program. Programmet kopierar bara källfilen till återgivningsmålet.
 
@@ -110,17 +110,17 @@ Mer information om återgivningens återanropsparametrar finns i [Asset Compute 
 
 ### Överför renderingar {#upload-rendition}
 
-När varje återgivning har skapats och lagrats i en fil med sökvägen som tillhandahålls av `rendition.path`, överför [Asset compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) varje återgivning till ett molnlagringsutrymme (antingen AWS eller Azure). Ett anpassat program hämtar flera återgivningar samtidigt om, och bara om, den inkommande begäran har flera återgivningar som pekar på samma program-URL. Överföringen till molnlagringen görs efter varje återgivning och innan återanropet för nästa återgivning körs.
+När varje återgivning har skapats och lagrats i en fil med sökvägen som tillhandahålls av `rendition.path`, överför [ Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) varje återgivning till ett molnlagringsutrymme (antingen AWS eller Azure). Ett anpassat program hämtar flera återgivningar samtidigt om, och bara om, den inkommande begäran har flera återgivningar som pekar på samma program-URL. Överföringen till molnlagringen görs efter varje återgivning och innan återanropet för nästa återgivning körs.
 
 `batchWorker()` har ett annat beteende. Alla återgivningar bearbetas, och först när alla har bearbetats överförs de.
 
 ## [!DNL Adobe I/O] händelser {#aio-events}
 
-SDK skickar Adobe [!DNL I/O Events] för varje återgivning. Dessa händelser är antingen av typen `rendition_created` eller `rendition_failed` beroende på resultatet. Mer information finns i [asynkrona händelser i Asset compute](api.md#asynchronous-events).
+SDK skickar Adobe [!DNL I/O Events] för varje återgivning. Dessa händelser är antingen av typen `rendition_created` eller `rendition_failed` beroende på resultatet. Mer information finns i [Asset Compute asynkrona händelser](api.md#asynchronous-events).
 
 ## Ta emot [!DNL Adobe I/O] händelser {#receive-aio-events}
 
-Klienten avsöker Adobe [!DNL I/O Events]-journalen enligt dess förbrukningslogik. Den inledande journal-URL:en är den som anges i API-svaret för `/register`. Händelser kan identifieras med hjälp av `requestId` som finns i händelserna och är samma som returneras i `/process`. Varje återgivning har en separat händelse som skickas så snart återgivningen har överförts (eller misslyckats). När klienten tar emot en matchande händelse kan den visa eller på annat sätt hantera de resulterande återgivningarna.
+Klienten avsöker Adobe [!DNL I/O Events]-journalen enligt dess konsumtionslogik. Den inledande journal-URL:en är den som anges i API-svaret för `/register`. Händelser kan identifieras med hjälp av `requestId` som finns i händelserna och är samma som returneras i `/process`. Varje återgivning har en separat händelse som skickas så snart återgivningen har överförts (eller misslyckats). När klienten tar emot en matchande händelse kan den visa eller på annat sätt hantera de resulterande återgivningarna.
 
 JavaScript-biblioteket [`asset-compute-client`](https://github.com/adobe/asset-compute-client#usage) gör journalavsökningen enkel med metoden `waitActivation()` för att hämta alla händelser.
 

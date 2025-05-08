@@ -1,6 +1,6 @@
 ---
-title: "[!DNL Asset Compute Service] HTTP API"
-description: "[!DNL Asset Compute Service] HTTP API för att skapa anpassade program."
+title: '[!DNL Asset Compute Service] HTTP API'
+description: '[!DNL Asset Compute Service] HTTP API för att skapa anpassade program.'
 exl-id: 4b63fdf9-9c0d-4af7-839d-a95e07509750
 source-git-commit: f15b9819d3319d22deccdf7e39c0f72728baaa39
 workflow-type: tm+mt
@@ -11,7 +11,7 @@ ht-degree: 0%
 
 # [!DNL Asset Compute Service] HTTP API {#asset-compute-http-api}
 
-API:t används endast i utvecklingssyfte. API:t anges som ett sammanhang när du utvecklar anpassade program. [!DNL Adobe Experience Manager] som [!DNL Cloud Service] använder API:t för att skicka bearbetningsinformationen till ett anpassat program. Mer information finns i [Använda resursmikrotjänster och Bearbeta profiler](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+API:t används endast i utvecklingssyfte. API:t anges som ett sammanhang när du utvecklar anpassade program. [!DNL Adobe Experience Manager] som [!DNL Cloud Service] använder API:t för att skicka bearbetningsinformationen till ett anpassat program. Mer information finns i [Använda resursmikrotjänster och Bearbeta profiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
@@ -63,7 +63,7 @@ Dessa omfattningar kräver att projektet [!DNL Adobe Developer Console] prenumer
 * Grundläggande
    * omfattningar: `openid,AdobeID`
 
-* Asset compute
+* Asset Compute
    * metascope: `asset_compute_meta`
    * omfattningar: `asset_compute,read_organizations`
 
@@ -354,14 +354,14 @@ De användningsområden som stöds är:
 
 * Beskärning är en återgivning av en rektangel vars gränser definieras genom crop.w, crop.h, crop.x och crop.y. Beskärningsinformationen anges i återgivningsobjektets `instructions.crop`-fält.
 * Ändra storlek på bilder med bredden, höjden eller båda. `instructions.width` och `instructions.height` definierar det i återgivningsobjektet. Om du bara vill ändra storlek med bredd eller höjd anger du bara ett värde. Beräkningstjänsten bevarar proportionerna.
-* Ange kvaliteten för en JPEG-bild. `instructions.quality` definierar det i återgivningsobjektet. En kvalitetsnivå på 100 representerar den högsta kvaliteten, medan lägre tal innebär en kvalitetsförsämring.
+* Ange kvalitet för en JPEG-bild. `instructions.quality` definierar det i återgivningsobjektet. En kvalitetsnivå på 100 representerar den högsta kvaliteten, medan lägre tal innebär en kvalitetsförsämring.
 * Skapa sammanflätade bilder. `instructions.interlace` definierar det i återgivningsobjektet.
 * Ställ in DPI för att justera den återgivna storleken för DPI-publicering genom att justera den skala som används på pixlarna. `instructions.dpi` definierar den i återgivningsobjektet för att ändra dpi-upplösning. Om du vill ändra storlek på bilden så att den får samma storlek med en annan upplösning använder du `convertToDpi`-instruktionerna.
 * Ändra bildens storlek så att dess återgivna bredd eller höjd förblir densamma som originalet vid den angivna målupplösningen (DPI). `instructions.convertToDpi` definierar det i återgivningsobjektet.
 
 ## Vattenstämpelresurser {#add-watermark}
 
-[Asset Compute SDK](https://github.com/adobe/asset-compute-sdk) har stöd för att lägga till en vattenstämpel i bildfilerna PNG, JPEG, TIFF och GIF. Vattenstämpeln läggs till efter återgivningsinstruktionerna i objektet `watermark` på återgivningen.
+[Asset Compute SDK](https://github.com/adobe/asset-compute-sdk) har stöd för att lägga till en vattenstämpel till PNG-, JPEG-, TIFF- och GIF-bildfiler. Vattenstämpeln läggs till efter återgivningsinstruktionerna i objektet `watermark` på återgivningen.
 
 Vattenstämplar görs under efterbearbetningen av återgivningen. För vattenstämpelresurser väljer den anpassade arbetaren [efterbearbetning](#opt-in-to-post-processing) genom att ange fältet `postProcess` för återgivningsobjektet till `true`. Om arbetaren inte väljer att delta används inte vattenstämplar, även om vattenstämpelobjektet har angetts för återgivningsobjektet i begäran.
 
@@ -373,15 +373,15 @@ Följande är tillgängliga alternativ för arrayen `renditions` i [`/process`](
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
-| `fmt` | `string` | Målformatet för återgivningar kan också vara `text` för textrahering och `xmp` för att extrahera XMP metadata som xml. Se [format som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support) | `png` |
+| `fmt` | `string` | Målformatet för återgivningar kan också vara `text` för textrahering och `xmp` för extrahering av XMP-metadata som xml. Se [format som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support) | `png` |
 | `worker` | `string` | URL för ett [anpassat program](develop-custom-application.md). Måste vara en `https://`-URL. Om det här fältet finns skapar ett anpassat program återgivningen. Alla andra inställda återgivningsfält används sedan i det anpassade programmet. | `"https://1234.adobeioruntime.net`<br>`/api/v1/web`<br>`/example-custom-worker-master/worker"` |
 | `target` | `string` | Den URL som den genererade återgivningen ska överföras till med HTTP PUT. | `http://w.com/img.jpg` |
-| `target` | `object` | Multipart-försignerad URL-överföringsinformation för den genererade återgivningen. Den här informationen gäller för [AEM/Oak Direct Binary Upload](https://jackrabbit.apache.org/oak/docs/features/direct-binary-access.html) med det här [multipart-överföringsbeteendet](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/api/binary/BinaryUpload.html).<br>Fält:<ul><li>`urls`: strängmatris, en för varje försignerad del-URL</li><li>`minPartSize`: den minsta storleken som ska användas för en del = url</li><li>`maxPartSize`: den största storleken som kan användas för en del = url</li></ul> | `{ "urls": [ "https://part1...", "https://part2..." ], "minPartSize": 10000, "maxPartSize": 100000 }` |
+| `target` | `object` | Multipart-försignerad URL-överföringsinformation för den genererade återgivningen. Den här informationen gäller för [AEM/Oak Direct Binary Upload](https://jackrabbit.apache.org/oak/docs/features/direct-binary-access.html) med detta [flerdelsöverföringsbeteende](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/api/binary/BinaryUpload.html).<br>Fält:<ul><li>`urls`: strängmatris, en för varje försignerad del-URL</li><li>`minPartSize`: den minsta storleken som ska användas för en del = url</li><li>`maxPartSize`: den största storleken som kan användas för en del = url</li></ul> | `{ "urls": [ "https://part1...", "https://part2..." ], "minPartSize": 10000, "maxPartSize": 100000 }` |
 | `userData` | `object` | Valfritt. Klienten styr det reserverade utrymmet och skickar det vidare på samma sätt som renderingshändelser. Gör att en klient kan lägga till anpassad information för att identifiera återgivningshändelser. Den får inte ändras eller förlitas i anpassade program, eftersom kunderna kan ändra den när som helst. | `{ ... }` |
 
 ### Återgivningsspecifika fält {#rendition-specific-fields}
 
-En lista över de filformat som stöds finns i [Filformat som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support).
+En lista över de filformat som stöds finns i [Filformat som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
@@ -389,11 +389,11 @@ En lista över de filformat som stöds finns i [Filformat som stöds](https://ex
 | `embedBinaryLimit` | `number` i byte | När filstorleken för återgivningen är mindre än det angivna värdet inkluderas den i händelsen som skickas när återgivningen har skapats. Den största tillåtna storleken för inbäddning är 32 kB (32 x 1 024 byte). Om en återgivning är större än `embedBinaryLimit`-gränsen placeras den på en plats i molnlagringen och bäddas inte in i händelsen. | `3276` |
 | `width` | `number` | Bredd i pixlar. endast för bildåtergivningar. | `200` |
 | `height` | `number` | Höjd i pixlar. endast för bildåtergivningar. | `200` |
-|                   |          | Proportionerna behålls alltid om: <ul> <li> Både `width` och `height` har angetts och bilden får plats i storleken samtidigt som proportionerna behålls </li><li> Om bara `width` eller `height` anges används motsvarande dimension för den resulterande bilden, samtidigt som proportionerna behålls</li><li> Om `width` eller `height` inte anges används den ursprungliga bildens pixelstorlek. Det beror på källtypen. För vissa format, till exempel PDF, används en standardstorlek. Det kan finnas en maximal storleksgräns.</li></ul> | |
+|                   |          | Proportionerna behålls alltid om: <ul> <li> Både `width` och `height` har angetts och bilden får plats i storleken samtidigt som proportionerna behålls </li><li> Om bara `width` eller `height` anges används motsvarande dimension för den resulterande bilden, samtidigt som proportionerna behålls</li><li> Om `width` eller `height` inte anges används den ursprungliga bildens pixelstorlek. Det beror på källtypen. För vissa format, till exempel PDF-filer, används en standardstorlek. Det kan finnas en maximal storleksgräns.</li></ul> | |
 | `quality` | `number` | Ange jpeg-kvalitet i intervallet `1` till `100`. Gäller endast för bildåtergivningar. | `90` |
-| `xmp` | `string` | Används endast vid XMP av metadatatillbakaskrivning, är det base64-kodade XMP att skriva tillbaka till den angivna återgivningen. | |
+| `xmp` | `string` | Används endast av XMP metadatatillbakaskrivning och det är base64-kodad XMP att skriva tillbaka till den angivna återgivningen. | |
 | `interlace` | `bool` | Skapa sammanflätad PNG, GIF eller progressiv JPEG genom att ange den till `true`. Det påverkar inte andra filformat. | |
-| `jpegSize` | `number` | Ungefärlig storlek på filen JPEG i byte. Den åsidosätter alla `quality`-inställningar. Det påverkar inte andra format. | |
+| `jpegSize` | `number` | Ungefärlig storlek på JPEG-filen i byte. Den åsidosätter alla `quality`-inställningar. Det påverkar inte andra format. | |
 | `dpi` | `number` eller `object` | Ange x- och y-DPI. För enkelhetens skull kan den också anges till ett enda tal, som används för både x och y. Det påverkar inte själva bilden. | `96` eller `{ xdpi: 96, ydpi: 96 }` |
 | `convertToDpi` | `number` eller `object` | x- och y-DPI samplar om värden med bibehållen fysisk storlek. För enkelhetens skull kan den också anges till ett enda tal, som används för både x och y. | `96` eller `{ xdpi: 96, ydpi: 96 }` |
 | `files` | `array` | Lista över filer som ska inkluderas i ZIP-arkivet (`fmt=zip`). Varje post kan antingen vara en URL-sträng eller ett objekt med fälten:<ul><li>`url`: URL för hämtning av fil</li><li>`path`: Lagra filen under den här sökvägen i ZIP</li></ul> | `[{ "url": "https://host/asset.jpg", "path": "folder/location/asset.jpg" }]` |
@@ -413,7 +413,7 @@ PNG-formatet används som vattenstämpel.
 
 När bearbetningen av en återgivning är klar eller när ett fel inträffar, skickas en händelse till Adobe [!DNL `I/O Events Journal`]. Klienterna måste lyssna på den journal-URL som tillhandahålls via [`/register`](#register). Journalsvaret innehåller en `event`-matris som består av ett objekt för varje händelse, varav fältet `event` innehåller den faktiska händelsens nyttolast.
 
-Adobe [!DNL `I/O Events`]-typen för alla händelser i [!DNL Asset Compute Service] är `asset_compute`. Journalen prenumererar automatiskt på endast den här händelsetypen och det finns inget ytterligare krav på att filtrera baserat på händelsetypen [!DNL Adobe Developer]. Tjänstspecifika händelsetyper är tillgängliga i egenskapen `type` för händelsen.
+Adobe-typen [!DNL `I/O Events`] för alla händelser i [!DNL Asset Compute Service] är `asset_compute`. Journalen prenumererar automatiskt på endast den här händelsetypen och det finns inget ytterligare krav på att filtrera baserat på händelsetypen [!DNL Adobe Developer]. Tjänstspecifika händelsetyper är tillgängliga i egenskapen `type` för händelsen.
 
 ### Händelsetyper {#event-types}
 

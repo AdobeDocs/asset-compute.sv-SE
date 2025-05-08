@@ -11,13 +11,13 @@ ht-degree: 0%
 
 # Introduktion till utökningsbarhet {#introduction-to-extensibilty}
 
-Många återgivningskrav, som konvertering till format och storleksändring av bilder, hanteras av [Bearbeta profiler i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview). Mer komplexa affärsbehov kan behöva en skräddarsydd lösning som passar organisationens behov. [!DNL Asset Compute Service] kan utökas genom att skapa anpassade program som anropas från Bearbeta profiler i [!DNL Experience Manager]. Dessa anpassade program uppfyller de [användningsfall som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+Många återgivningskrav, som konvertering till format och storleksändring av bilder, hanteras av [Bearbeta profiler i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview). Mer komplexa affärsbehov kan behöva en skräddarsydd lösning som passar organisationens behov. [!DNL Asset Compute Service] kan utökas genom att skapa anpassade program som anropas från Bearbeta profiler i [!DNL Experience Manager]. Dessa anpassade program uppfyller de [användningsfall som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
 >[!DNL Asset Compute Service] är bara tillgängligt för användning med [!DNL Experience Manager] som [!DNL Cloud Service].
 
-De anpassade programmen är headless [Adobe Developer App Builder](https://github.com/AdobeDocs/app-builder)-appar. Det är enkelt att utöka [!DNL Asset Compute Service] med anpassade program via utvecklarverktygen för [Asset Compute SDK](https://github.com/adobe/asset-compute-sdk) och Adobe Developer App Builder. Med dessa verktyg kan utvecklare fokusera på affärslogik. Det är lika enkelt att skapa anpassade program som att skapa en åtgärd utan servern Adobe [!DNL I/O Runtime]. Det är en enda Node.js-JavaScript-funktion. Det [grundläggande anpassade programexemplet](https://github.com/adobe/asset-compute-example-workers/blob/master/projects/worker-basic/worker-basic.js) illustrerar det.
+De anpassade programmen är headless [Adobe Developer App Builder](https://github.com/AdobeDocs/app-builder)-appar. Det är enkelt att utöka [!DNL Asset Compute Service] med anpassade program via utvecklingsverktygen i [Asset Compute SDK](https://github.com/adobe/asset-compute-sdk) och Adobe Developer App Builder. Med dessa verktyg kan utvecklare fokusera på affärslogik. Att skapa anpassade program är lika enkelt som att skapa en Adobe [!DNL I/O Runtime]-åtgärd utan vanliga servrar. Det är en enda Node.js-JavaScript-funktion. Det [grundläggande anpassade programexemplet](https://github.com/adobe/asset-compute-example-workers/blob/master/projects/worker-basic/worker-basic.js) illustrerar det.
 
 ## Krav och etableringskrav {#prerequisites-and-provisioning}
 
@@ -28,7 +28,7 @@ Kontrollera att du uppfyller följande krav:
 * Experience Organization måste ha [!DNL Experience Manager] som [!DNL Cloud Service] aktiverat.
 * Organisationen [!DNL Adobe Experience Cloud] är en del av programmet [!DNL Adobe Developer App Builder] för förhandstitt på utvecklare. Gå till [så här ansöker du om åtkomst](https://developer.adobe.com/app-builder/docs/overview/getting_access).
 * Se till att utvecklarrollen eller administratörsbehörigheten finns i organisationen för utvecklaren.
-* Kontrollera att Adobe [[!DNL aio-cli]](https://github.com/adobe/aio-cli) är installerat lokalt.
+* Kontrollera att Adobe [[!DNL aio-cli]](https://github.com/adobe/aio-cli) har installerats lokalt.
 
 <!-- TBD for later:
 

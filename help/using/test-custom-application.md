@@ -4,7 +4,7 @@ description: Testa och felsök det anpassade programmet  [!DNL Asset Compute Ser
 exl-id: c2534904-0a07-465e-acea-3cb578d3bc08
 source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
 workflow-type: tm+mt
-source-wordcount: '775'
+source-wordcount: '769'
 ht-degree: 0%
 
 ---
@@ -25,13 +25,13 @@ To run tests for a custom application, run `aio asset-compute test-worker` comma
 Document interactively running `adobe-asset-compute` commands `test-worker` and `run-worker`.
 -->
 
-Det här kommandot kör ett anpassat enhetstestramverk för programåtgärder i Asset compute i projektet enligt beskrivningen nedan. Den är ansluten via en konfiguration i filen `package.json`. Det går också att ha JavaScript enhetstester som Jest. `aio app test` kör båda.
+Det här kommandot kör ett anpassat enhetstestramverk för Asset Compute-programåtgärder i projektet enligt beskrivningen nedan. Den är ansluten via en konfiguration i filen `package.json`. Det går också att ha JavaScript enhetstester som Jest. `aio app test` kör båda.
 
 Plugin-programmet [aio-cli-plugin-program-asset-compute](https://github.com/adobe/aio-cli-plugin-asset-compute#install-as-local-devdependency) är inbäddat som ett utvecklingsberoende i det anpassade programmet så att det inte behöver installeras på bygg-/testsystem.
 
 ### Ramverk för testning av programenhet {#unit-test-framework}
 
-Med testmiljön i Asset Compute kan du testa program utan att skriva någon kod. Den bygger på principen för källa till återgivning av program. En viss fil- och mappstruktur måste ställas in för att definiera testfall med testkällfiler, valfria parametrar, förväntade återgivningar och anpassade valideringsskript. Som standard jämförs återgivningarna för bytelikhet. Dessutom kan externa HTTP-tjänster enkelt modelleras med enkla JSON-filer.
+Med Asset Compute testramverk för programenheter kan du testa program utan att behöva skriva någon kod. Den bygger på principen för källa till återgivning av program. En viss fil- och mappstruktur måste ställas in för att definiera testfall med testkällfiler, valfria parametrar, förväntade återgivningar och anpassade valideringsskript. Som standard jämförs återgivningarna för bytelikhet. Dessutom kan externa HTTP-tjänster enkelt modelleras med enkla JSON-filer.
 
 ### Lägg till tester {#add-tests}
 
@@ -158,7 +158,7 @@ Parameterfil med felorsak:
 }
 ```
 
-Se en fullständig lista och en beskrivning av [orsaker till fel i Asset compute](https://github.com/adobe/asset-compute-commons#error-reasons).
+Se en fullständig lista och en beskrivning av [Asset Compute-felorsaker](https://github.com/adobe/asset-compute-commons#error-reasons).
 
 ## Felsöka ett anpassat program {#debug-custom-worker}
 
@@ -176,7 +176,7 @@ Många av dessa steg automatiseras i `aio`. Gå till avsnittet Felsöka programm
 1. Gör tillägg till dina användarinställningar i JSON-filen. Den gamla Visual Studio Code debugger används hela tiden. Den nya har [några problem](https://github.com/apache/openwhisk-wskdebug/issues/74) med wskdebug: `"debug.javascript.usePreview": false`.
 1. Stäng alla instanser av program som är öppna med `aio app run`.
 1. Distribuera den senaste koden med `aio app deploy`.
-1. Kör bara utvecklingsverktyget Asset compute med `aio asset-compute devtool`. Håll den öppen.
+1. Kör bara Asset Compute Devtool med `aio asset-compute devtool`. Håll den öppen.
 1. Lägg till följande felsökningskonfiguration i `launch.json` i Visual Studio Code Editor:
 
    ```json
@@ -200,7 +200,7 @@ Många av dessa steg automatiseras i `aio`. Gå till avsnittet Felsöka programm
 
    Hämta `ACTION NAME` från utdata för `aio app deploy`.
 
-1. Välj `wskdebug worker` i konfigurationen för kör/felsök och tryck på uppspelningsikonen. Vänta tills det visas **[!UICONTROL Klart för aktiveringar]** i fönstret **[!UICONTROL Felsökningskonsol]**.
+1. Välj `wskdebug worker` i konfigurationen för kör/felsök och tryck på uppspelningsikonen. Vänta tills det visas **[!UICONTROL Ready for activations]** i fönstret **[!UICONTROL Debug Console]**.
 
 1. Klicka på **[!UICONTROL run]** i utvecklingsverktyget. Du kan se vilka åtgärder som körs i Visual Studio-kodredigeraren och att loggarna börjar visas.
 

@@ -64,7 +64,7 @@ Kontrollera att [Adobe aio-cli](https://github.com/adobe/aio-cli) är installera
 
    Läs här om de [viktigaste komponenterna i en App Builder-app](https://developer.adobe.com/app-builder/docs/getting_started/first_app/#5-anatomy-of-an-app-builder-application).
 
-   Mallprogrammet använder Adobe [Asset compute SDK](https://github.com/adobe/asset-compute-sdk#asset-compute-sdk) för överföring, hämtning och samordning av programåtergivningar så att utvecklare bara behöver implementera den anpassade programlogiken. I mappen `actions/<worker-name>` är filen `index.js` den plats där den anpassade programkoden ska läggas till.
+   Mallprogrammet använder Adobe [Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#asset-compute-sdk) för att överföra, hämta och organisera programåtergivningar, så att utvecklare bara behöver implementera den anpassade programlogiken. I mappen `actions/<worker-name>` är filen `index.js` den plats där den anpassade programkoden ska läggas till.
 
 Se [exempel på anpassade program](#try-sample) för exempel och idéer på anpassade program.
 
@@ -83,7 +83,7 @@ Verktyget för utvecklare att utvärdera anpassade appar med [!DNL Asset Compute
 
 >[!NOTE]
 >
->Den här behållaren är skild från molnlagringen för [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]. Det gäller endast för utveckling och testning med utvecklingsverktyget Asset compute.
+>Den här behållaren är skild från molnlagringen för [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]. Det gäller endast för utveckling och testning med Asset Compute utvecklingsverktyg.
 
 Kontrollera att du har åtkomst till en [molnlagringsbehållare](https://github.com/adobe/asset-compute-devtool#prerequisites) som stöds. Den här behållaren används tillsammans av olika utvecklare för olika projekt när det behövs.
 
@@ -131,7 +131,7 @@ Infoga de efterföljande autentiseringsuppgifterna för utvecklingsverktyget i f
 
 ## Kör programmet {#run-custom-application}
 
-Innan du kör programmet med utvecklarverktyget i Asset Compute måste du konfigurera [inloggningsuppgifterna](#developer-tool-credentials) korrekt.
+Konfigurera [inloggningsuppgifterna](#developer-tool-credentials) korrekt innan du kör programmet med utvecklarverktyget i Asset Compute.
 
 Om du vill köra programmet i utvecklingsverktyget använder du kommandot `aio app run`. Den distribuerar åtgärden till Adobe [!DNL I/O Runtime] och startar utvecklingsverktyget på den lokala datorn. Det här verktyget används för att testa programbegäranden under utveckling. Här är ett exempel på en renderingsförfrågan:
 
@@ -146,7 +146,7 @@ Om du vill köra programmet i utvecklingsverktyget använder du kommandot `aio a
 
 >[!NOTE]
 >
->Använd inte flaggan `--local` med kommandot `run`. Det fungerar inte med [!DNL Asset Compute] anpassade program och utvecklarverktyget Asset compute. Anpassade program anropas av tjänsten [!DNL Asset Compute] som inte har åtkomst till åtgärder som körs på utvecklarens lokala datorer.
+>Använd inte flaggan `--local` med kommandot `run`. Det fungerar inte med [!DNL Asset Compute] anpassade program och Asset Compute utvecklarverktyg. Anpassade program anropas av tjänsten [!DNL Asset Compute] som inte har åtkomst till åtgärder som körs på utvecklarens lokala datorer.
 
 Se [här](test-custom-application.md) om hur du testar och felsöker programmet. När du är klar med utvecklingen av ditt anpassade program [distribuerar du ditt anpassade program](deploy-custom-application.md).
 
@@ -226,9 +226,9 @@ exports.main = worker(async function (source, rendition) {
 
 ## Stöd för autentisering och auktorisering {#authentication-authorization-support}
 
-Som standard innehåller anpassade program från Asset Compute autentisering och autentisering för App Builder-projektet. Aktiveras genom att `require-adobe-auth`-anteckningen ställs in på `true` i `manifest.yml`.
+Som standard följer Asset Compute anpassade program autentisering och autentisering för App Builder-projektet. Aktiveras genom att `require-adobe-auth`-anteckningen ställs in på `true` i `manifest.yml`.
 
-### Åtkomst till andra Adobe-API:er {#access-adobe-apis}
+### Få åtkomst till andra Adobe API:er {#access-adobe-apis}
 
 <!-- TBD: Revisit this section. Where do we document console workspace creation?
 -->
@@ -290,14 +290,14 @@ Ett program körs i en behållare i Adobe [!DNL I/O Runtime] med [limits](https:
           concurrency: 1
 ```
 
-På grund av omfattande bearbetning i Asset Compute-program måste du justera dessa gränser för optimala prestanda (tillräckligt stor för att hantera binära resurser) och effektivitet (inte slösa resurser på grund av oanvänt behållarminne).
+På grund av omfattande bearbetning i Asset Compute-program måste du justera dessa gränser för optimala prestanda (tillräckligt stor för att hantera binära resurser) och effektivitet (inte slösa bort resurser på grund av oanvänt behållarminne).
 
 Standardtidsgränsen för åtgärder i körtid är en minut, men den kan ökas genom att `timeout`-gränsen anges (i millisekunder). Om du förväntar dig att bearbeta större filer ökar du den här tiden. Tänk på hur lång tid det tar att hämta källan, bearbeta filen och överföra återgivningen. Om en åtgärd gör timeout, d.v.s. inte returnerar aktiveringen före den angivna tidsgränsen, tas behållaren bort och används inte igen.
 
-Asset compute-applikationer är till sin natur ofta nätverks- och diskingångs- eller utdatabunden. Källfilen måste hämtas först. Bearbetningen är ofta resurskrävande och återgivningarna överförs sedan igen.
+Asset Compute-program är till sin natur ofta nätverks- och disk-indata eller -utdata. Källfilen måste hämtas först. Bearbetningen är ofta resurskrävande och återgivningarna överförs sedan igen.
 
-Du kan ange det minne som tilldelats en åtgärdsbehållare i megabyte med parametern `memorySize`. För närvarande definierar den här parametern också hur mycket processoråtkomst behållaren får, och viktigast av allt är det en viktig del av kostnaden för att använda körningsversionen (större behållare kostar mer). Använd ett större värde här när bearbetningen kräver mer minne eller processorkapacitet, men var försiktig så att du inte slösar bort resurser eftersom ju större behållare det är, desto lägre blir den totala genomströmningen.
+Du kan ange det minne som tilldelats en åtgärdsbehållare i megabyte med parametern `memorySize`. För närvarande definierar den här parametern också hur mycket CPU-åtkomst behållaren får, och viktigast av allt är det en viktig del av kostnaden för att använda körningsversionen (större behållare kostar mer). Använd ett större värde här när bearbetningen kräver mer minne eller CPU, men var försiktig så att du inte slösar bort resurser ju större behållare det är, desto lägre blir den totala genomströmningen.
 
-Dessutom är det möjligt att kontrollera åtgärdssamtidighet i en behållare med inställningen `concurrency`. Den här inställningen är antalet samtidiga aktiveringar som en enskild behållare (av samma åtgärd) får. I den här modellen fungerar åtgärdsbehållaren som en Node.js-server som tar emot flera samtidiga begäranden, upp till den gränsen. Standardvärdet `memorySize` i körningsversionen är 200 MB, vilket är idealiskt för mindre App Builder-åtgärder. För Asset compute-program kan det här standardvärdet bli för stort på grund av att de har mer lokal bearbetning och använder mer disk. Vissa program kanske inte fungerar bra med samtidig aktivitet beroende på implementering. Asset compute SDK säkerställer att aktiveringarna separeras genom att filer skrivs till olika unika mappar.
+Dessutom är det möjligt att kontrollera åtgärdssamtidighet i en behållare med inställningen `concurrency`. Den här inställningen är antalet samtidiga aktiveringar som en enskild behållare (av samma åtgärd) får. I den här modellen fungerar åtgärdsbehållaren som en Node.js-server som tar emot flera samtidiga begäranden, upp till den gränsen. Standardvärdet `memorySize` i körningsversionen är 200 MB, vilket är idealiskt för mindre App Builder-åtgärder. För Asset Compute-program kan det här standardvärdet bli för stort på grund av deras hårdvarubearbetning och diskanvändning. Vissa program kanske inte fungerar bra med samtidig aktivitet beroende på implementering. Asset Compute SDK säkerställer att aktiveringarna separeras genom att filer skrivs till olika unika mappar.
 
 Testa program för att hitta de optimala siffrorna för `concurrency` och `memorySize`. Större behållare = högre minnesgräns kan möjliggöra mer samtidighet men kan också vara onödigt för lägre trafik.

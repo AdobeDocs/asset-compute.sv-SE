@@ -4,7 +4,7 @@ description: Felsök och felsök anpassade program med  [!DNL Asset Compute Serv
 exl-id: 017fff91-e5e9-4a30-babf-5faa1ebefc2f
 source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
 workflow-type: tm+mt
-source-wordcount: '273'
+source-wordcount: '272'
 ht-degree: 0%
 
 ---
@@ -17,18 +17,18 @@ Några allmänna felsökningstips som kan hjälpa dig att felsöka med Asset Com
 * Kontrollera att det finns referenser till alla beroenden som ska installeras i programmets `package.json`-fil.
 * Se till att eventuella fel som kan uppstå vid rensning vid fel inte genererar egna fel som döljer det ursprungliga problemet.
 
-* När utvecklingsverktyget startas för första gången med en ny [!DNL Asset Compute Service]-integrering, kan det misslyckas med den första bearbetningsbegäran om Asset compute Events-journalen inte är helt konfigurerad. Vänta en stund tills journalen har konfigurerats innan du skickar en ny begäran.
-* Se till att alla nödvändiga API:er - Asset compute, Adobe [!DNL I/O Events], händelsehantering och körningsmiljöer finns med i Adobe [!DNL `I/O Project`] och Workspace för att undvika `/register` - eller `/process` -begärandefel.
+* När utvecklingsverktyget startas för första gången med en ny [!DNL Asset Compute Service]-integrering, kan det misslyckas med den första bearbetningsbegäran om Asset Compute Events Journal inte har konfigurerats helt. Vänta en stund tills journalen har konfigurerats innan du skickar en ny begäran.
+* Se till att alla nödvändiga API:er - Asset Compute, Adobe [!DNL I/O Events], Events Management och Runtime - finns med i Adobe [!DNL `I/O Project`] och Workspace för att undvika `/register` - eller `/process` -förfrågningsfel.
 
 ## Logga in problem via Adobe [!DNL aio-cli] {#login-via-aio-cli}
 
 Om du har problem med att logga in på [!DNL Adobe Developer Console] [via Adobe [!DNL aio-cli]](https://developer.adobe.com/app-builder/docs/getting_started/first_app/#3-signing-in-from-cli) lägger du manuellt till de autentiseringsuppgifter som krävs för att utveckla, testa och distribuera ditt anpassade program:
 
-1. Navigera till ditt Adobe Developer App Builder-projekt och din arbetsyta i [Adobe Developer Console](https://developer.adobe.com/console/user/servicesandapis) och tryck på **[!UICONTROL Hämta]** i det övre högra hörnet. Öppna den här filen och spara denna JSON på en säker plats på datorn.
+1. Navigera till ditt Adobe Developer App Builder-projekt och din arbetsyta i [Adobe Developer Console](https://developer.adobe.com/console/user/servicesandapis) och tryck på **[!UICONTROL Download]** i det övre högra hörnet. Öppna den här filen och spara denna JSON på en säker plats på datorn.
 
 1. Navigera till ENV-filen i ditt Adobe Developer App Builder-program.
 
-1. Lägg till inloggningsuppgifterna för Adobe [!DNL I/O Runtime]. Hämta inloggningsuppgifterna för Adobe [!DNL I/O Runtime] från den hämtade JSON-filen. Autentiseringsuppgifterna är under `project.workspace.services.runtime`. Lägg till autentiseringsuppgifterna för [!DNL Adobe I/O]-miljön i variablerna `AIO_runtime_XXX`:
+1. Lägg till inloggningsuppgifterna för Adobe [!DNL I/O Runtime]. Hämta inloggningsuppgifterna för Adobe [!DNL I/O Runtime] från den hämtade JSON. Autentiseringsuppgifterna är under `project.workspace.services.runtime`. Lägg till autentiseringsuppgifterna för [!DNL Adobe I/O]-miljön i variablerna `AIO_runtime_XXX`:
 
    ```json
    AIO_runtime_auth=
