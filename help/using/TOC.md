@@ -20,7 +20,7 @@ ht-degree: 3%
 
 + [Användarhandbok för Asset Compute Service](home.md)
 + [Ökning](introduction.md)
-+ [Filformat som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support)
++ [Filformat som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support)
 + [Arkitektur](architecture.md)
 + [API-referenser](api.md)
 + Utöka Asset Compute {#extend}
@@ -30,6 +30,6 @@ ht-degree: 3%
    + [Utveckla ett anpassat program](develop-custom-application.md)
    + [Testa ett anpassat program](test-custom-application.md)
    + [Distribuera ett anpassat program](deploy-custom-application.md)
-   + [Integrera och använd i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview)
+   + [Integrera och använd i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview)
 + [Felsökning](troubleshooting.md)
 + [Bidra till öppen källkodsprojektet](contribute-to-compute-service.md)
