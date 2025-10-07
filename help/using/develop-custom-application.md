@@ -2,9 +2,9 @@
 title: Utveckla för  [!DNL Asset Compute Service]
 description: Skapa anpassade program med  [!DNL Asset Compute Service].
 exl-id: a0c59752-564b-4bb6-9833-ab7c58a7f38e
-source-git-commit: db38b9dc27505aa7e04cf58a646005fc2e0e8782
+source-git-commit: 94fd8c0888185f64825046b7999655e9501a71fe
 workflow-type: tm+mt
-source-wordcount: '1542'
+source-wordcount: '1489'
 ht-degree: 0%
 
 ---
@@ -40,7 +40,7 @@ Kontrollera att [Adobe aio-cli](https://github.com/adobe/aio-cli) är installera
    ◯ DX Asset Compute Worker
    ```
 
-1. Välj `Actions` när du uppmanas till det med `Which Adobe I/O App features do you want to enable for this project?`. Avmarkera alternativet `Web Assets` eftersom webbresurser använder olika autentiserings- och auktoriseringskontroller.
+1. Välj `Which Adobe I/O App features do you want to enable for this project?` när du uppmanas till det med `Actions`. Avmarkera alternativet `Web Assets` eftersom webbresurser använder olika autentiserings- och auktoriseringskontroller.
 
    ```bash
    ? Which Adobe I/O App features do you want to enable for this project?
@@ -90,17 +90,17 @@ Kontrollera att du har åtkomst till en [molnlagringsbehållare](https://github.
 #### Lägg till autentiseringsuppgifter i ENV-filen {#add-credentials-env-file}
 
 Infoga de efterföljande autentiseringsuppgifterna för utvecklingsverktyget i filen `.env`. Filen finns i roten av ditt App Builder-projekt:
+<!--
+1. Add the absolute path to the private key file created while adding services to your App Builder Project:
 
-1. Lägg till den absoluta sökvägen till den privata nyckelfilen som skapas när du lägger till tjänster i ditt App Builder-projekt:
-
-   ```conf
-   ASSET_COMPUTE_PRIVATE_KEY_FILE_PATH=
-   ```
+    ```conf
+    ASSET_COMPUTE_PRIVATE_KEY_FILE_PATH=
+    ```
 
    >[!NOTE]
    >
-   >JWT är föråldrat och privat nyckel är inte tillgängligt för hämtning. Observera att anpassade arbetare som skapats med OAuth kan distribueras, men utvecklingsverktyg fungerar inte när vi uppdaterar testverktygen.
-
+   >JWT is deprecated and Private Key is not available for download. While we are working on updating the testing tools, note that custom workers created using OAuth can be deployed but devtools would not work.
+-->
 1. Hämta filen från Adobe Developer Console. Gå till projektets rot och klicka på &quot;Hämta alla&quot; i det övre högra hörnet. Filen hämtas med `<namespace>-<workspace>.json` som filnamn. Gör något av följande:
 
    * Byt namn på filen till `console.json` och flytta den i projektets rot.
