@@ -15,9 +15,9 @@ ht-degree: 0%
 
 Den här dokumentationen innehåller [!DNL Asset Compute Service] ämnen som hur du utvecklar, hanterar, distribuerar och felsöker din anpassade kod. Om du vill veta vad en [!DNL Asset Compute Service] är går du till den här [introduktionen](introduction.md). Se även [vad tjänsten kan göra för dig](introduction.md#possible-use-cases-benefits).
 
-[!DNL Asset Compute Service] stöder konvertering av många filformat och kan integreras med många Adobe-tjänster. Se listan över [filformat som stöds och integreringstjänster](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
+[!DNL Asset Compute Service] stöder konvertering av många filformat och kan integreras med många Adobe-tjänster. Se listan över [filformat som stöds och integreringstjänster](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support).
 
-Se en översikt över [tillgångsmikrotjänster som är tillgängliga i [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview) och hur du använder mikrotjänsterna i [!DNL Experience Manager].
+Se en översikt över [tillgångsmikrotjänster som är tillgängliga i [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview) och hur du använder mikrotjänsterna i [!DNL Experience Manager].
 
 [!DNL Asset Compute Service]-utökningsmöjligheter har utvecklats under en öppen utvecklingsmodell på [github.com/adobe](https://github.com/adobe) som välkomnar bidrag från tilläggsutvecklare. Alla komponenter som är relevanta för att utveckla, skapa, testa och distribuera anpassade program är öppen källkod. Se [hur och var du ska bidra till beräkningstjänsten](contribute-to-compute-service.md).
 
