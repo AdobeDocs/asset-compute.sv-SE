@@ -2,7 +2,7 @@
 title: Testa och felsöka  [!DNL Asset Compute Service] anpassade program
 description: Testa och felsök det anpassade programmet  [!DNL Asset Compute Service] .
 exl-id: c2534904-0a07-465e-acea-3cb578d3bc08
-source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
+source-git-commit: f199cecfe4409e2370b30783f984062196dd807d
 workflow-type: tm+mt
 source-wordcount: '769'
 ht-degree: 0%
@@ -164,7 +164,7 @@ Se en fullständig lista och en beskrivning av [Asset Compute-felorsaker](https:
 
 Följande steg visar hur du kan felsöka ditt anpassade program med Visual Studio Code. Det gör det möjligt att se liveloggar, träffbrytpunkter och stega igenom kod samt ladda om lokala kodändringar live vid varje aktivering.
 
-Många av dessa steg automatiseras i `aio`. Gå till avsnittet Felsöka programmet i [Adobe Developer App Builder-dokumentationen](https://developer.adobe.com/app-builder/docs/getting_started/first_app). För tillfället innehåller stegen nedan en lösning.
+Många av dessa steg automatiseras i `aio`. Gå till avsnittet Felsöka programmet i [Adobe Developer App Builder-dokumentationen](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#). För tillfället innehåller stegen nedan en lösning.
 
 1. Installera den senaste [wskdebug](https://github.com/apache/openwhisk-wskdebug) från GitHub och den valfria [ngrok](https://www.npmjs.com/package/ngrok).
 
@@ -200,7 +200,7 @@ Många av dessa steg automatiseras i `aio`. Gå till avsnittet Felsöka programm
 
    Hämta `ACTION NAME` från utdata för `aio app deploy`.
 
-1. Välj `wskdebug worker` i konfigurationen för kör/felsök och tryck på uppspelningsikonen. Vänta tills det visas **[!UICONTROL Ready for activations]** i fönstret **[!UICONTROL Debug Console]**.
+1. Välj `wskdebug worker` i konfigurationen för körning/felsökning och tryck på uppspelningsikonen. Vänta tills det visas **[!UICONTROL Ready for activations]** i fönstret **[!UICONTROL Debug Console]**.
 
 1. Klicka på **[!UICONTROL run]** i utvecklingsverktyget. Du kan se vilka åtgärder som körs i Visual Studio-kodredigeraren och att loggarna börjar visas.
 

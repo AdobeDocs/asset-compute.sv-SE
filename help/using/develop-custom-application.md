@@ -2,7 +2,7 @@
 title: Utveckla för  [!DNL Asset Compute Service]
 description: Skapa anpassade program med  [!DNL Asset Compute Service].
 exl-id: a0c59752-564b-4bb6-9833-ab7c58a7f38e
-source-git-commit: 94fd8c0888185f64825046b7999655e9501a71fe
+source-git-commit: 63f83ff33ac6cd090fac4f6db18000155f464643
 workflow-type: tm+mt
 source-wordcount: '1489'
 ht-degree: 0%
@@ -21,11 +21,11 @@ Innan du börjar utveckla ett anpassat program:
 
 Kontrollera att [Adobe aio-cli](https://github.com/adobe/aio-cli) är installerat lokalt.
 
-1. Om du vill skapa ett anpassat program [skapar du ett App Builder-projekt](https://developer.adobe.com/app-builder/docs/getting_started/first_app/#4-bootstrapping-new-app-using-the-cli). Kör `aio app init <app-name>` i terminalen om du vill göra det.
+1. Om du vill skapa ett anpassat program [skapar du ett App Builder-projekt](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#4-bootstrapping-new-app-using-the-cli). Kör `aio app init <app-name>` i terminalen om du vill göra det.
 
-   Om du inte redan har loggat in uppmanar det här kommandot en webbläsare att be dig logga in på [Adobe Developer Console](https://developer.adobe.com/console/user/servicesandapis) med din Adobe ID. Mer information om hur du loggar in från klippet finns i [här](https://developer.adobe.com/app-builder/docs/getting_started/first_app/#3-signing-in-from-cli).
+   Om du inte redan har loggat in uppmanar det här kommandot en webbläsare att be dig logga in på [Adobe Developer Console](https://developer.adobe.com/console/user/servicesandapis) med din Adobe ID. Mer information om hur du loggar in från klippet finns i [här](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#3-signing-in-from-cli).
 
-   Adobe rekommenderar att du loggar in först. Om du har problem följer du instruktionerna [för att skapa en app utan att logga in](https://developer.adobe.com/app-builder/docs/getting_started/first_app/#42-developer-is-not-logged-in-as-enterprise-organization-user).
+   Adobe rekommenderar att du loggar in först. Om du har problem följer du instruktionerna [för att skapa en app utan att logga in](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#42-developer-is-not-logged-in-as-enterprise-organization-user).
 
 1. När du har loggat in följer du instruktionerna i CLI och väljer `Organization`, `Project` och `Workspace` som ska användas för programmet. Välj det projekt och den arbetsyta som du skapade när du [konfigurerade miljön](setup-environment.md). När du uppmanas till det `Which extension point(s) do you wish to implement ?`, se till att du väljer `DX Asset Compute Worker`:
 
@@ -62,7 +62,7 @@ Kontrollera att [Adobe aio-cli](https://github.com/adobe/aio-cli) är installera
 
 1. Följ resten av instruktionerna och öppna det nya programmet i Visual Studio Code (eller din favoritkodredigerare). Den innehåller ställningar och exempelkod för ett anpassat program.
 
-   Läs här om de [viktigaste komponenterna i en App Builder-app](https://developer.adobe.com/app-builder/docs/getting_started/first_app/#5-anatomy-of-an-app-builder-application).
+   Läs här om de [viktigaste komponenterna i en App Builder-app](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#5-anatomy-of-an-app-builder-application).
 
    Mallprogrammet använder Adobe [Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#asset-compute-sdk) för att överföra, hämta och organisera programåtergivningar, så att utvecklare bara behöver implementera den anpassade programlogiken. I mappen `actions/<worker-name>` är filen `index.js` den plats där den anpassade programkoden ska läggas till.
 
@@ -104,7 +104,7 @@ Infoga de efterföljande autentiseringsuppgifterna för utvecklingsverktyget i f
 1. Hämta filen från Adobe Developer Console. Gå till projektets rot och klicka på &quot;Hämta alla&quot; i det övre högra hörnet. Filen hämtas med `<namespace>-<workspace>.json` som filnamn. Gör något av följande:
 
    * Byt namn på filen till `console.json` och flytta den i projektets rot.
-   * Du kan också lägga till den absoluta sökvägen till JSON-filen för Adobe Developer Console-integrering. Den här filen är samma [`console.json`](https://developer.adobe.com/app-builder/docs/getting_started/first_app/#42-developer-is-not-logged-in-as-enterprise-organization-user)-fil som hämtas på din projektarbetsyta.
+   * Du kan också lägga till den absoluta sökvägen till JSON-filen för Adobe Developer Console-integrering. Den här filen är samma [`console.json`](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#42-developer-is-not-logged-in-as-enterprise-organization-user)-fil som hämtas på din projektarbetsyta.
 
      ```conf
      ASSET_COMPUTE_INTEGRATION_FILE_PATH=
@@ -243,7 +243,7 @@ const orgId = params.auth.orgId; // Experience Cloud Organization
 
 ### Skicka autentiseringsuppgifter för system från tredje part {#pass-credentials-for-tp}
 
-Om du vill hantera autentiseringsuppgifter för andra externa tjänster skickar du dem som standardparametrar för åtgärderna. De krypteras automatiskt vid transitering. Mer information finns i [Skapa åtgärder i utvecklarhandboken för Adobe I/O Runtime](https://developer.adobe.com/runtime/docs/guides/using/creating_actions/). Ange dem sedan med hjälp av miljövariabler under distributionen. De här parametrarna kan nås i `params`-objektet inuti åtgärden.
+Om du vill hantera autentiseringsuppgifter för andra externa tjänster skickar du dem som standardparametrar för åtgärderna. De krypteras automatiskt vid transitering. Mer information finns i [Skapa åtgärder i utvecklarhandboken för Adobe I/O Runtime](https://developer.adobe.com/app-builder/docs/guides/runtime_guides/creating-actions#). Ange dem sedan med hjälp av miljövariabler under distributionen. De här parametrarna kan nås i `params`-objektet inuti åtgärden.
 
 Ange standardparametrarna i `inputs` i `manifest.yml`:
 
@@ -278,7 +278,7 @@ const key = params.secretKey;
 
 ## Storleksändra program {#sizing-workers}
 
-Ett program körs i en behållare i Adobe [!DNL I/O Runtime] med [limits](https://developer.adobe.com/runtime/docs/guides/using/system_settings/) som kan konfigureras via `manifest.yml`:
+Ett program körs i en behållare i Adobe [!DNL I/O Runtime] med [limits](https://developer.adobe.com/app-builder/docs/guides/runtime_guides/system-settings#) som kan konfigureras via `manifest.yml`:
 
 ```yaml
     actions:

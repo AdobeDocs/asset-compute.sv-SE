@@ -2,7 +2,7 @@
 title: Felsök [!DNL Asset Compute Service]
 description: Felsök och felsök anpassade program med  [!DNL Asset Compute Service].
 exl-id: 017fff91-e5e9-4a30-babf-5faa1ebefc2f
-source-git-commit: c6f747ebd6d1b17834f1af0837609a148804f8a9
+source-git-commit: 63f83ff33ac6cd090fac4f6db18000155f464643
 workflow-type: tm+mt
 source-wordcount: '272'
 ht-degree: 0%
@@ -22,7 +22,7 @@ Några allmänna felsökningstips som kan hjälpa dig att felsöka med Asset Com
 
 ## Logga in problem via Adobe [!DNL aio-cli] {#login-via-aio-cli}
 
-Om du har problem med att logga in på [!DNL Adobe Developer Console] [via Adobe [!DNL aio-cli]](https://developer.adobe.com/app-builder/docs/getting_started/first_app/#3-signing-in-from-cli) lägger du manuellt till de autentiseringsuppgifter som krävs för att utveckla, testa och distribuera ditt anpassade program:
+Om du har problem med att logga in på [!DNL Adobe Developer Console] [via Adobe [!DNL aio-cli]](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#3-signing-in-from-cli) lägger du manuellt till de autentiseringsuppgifter som krävs för att utveckla, testa och distribuera ditt anpassade program:
 
 1. Navigera till ditt Adobe Developer App Builder-projekt och din arbetsyta i [Adobe Developer Console](https://developer.adobe.com/console/user/servicesandapis) och tryck på **[!UICONTROL Download]** i det övre högra hörnet. Öppna den här filen och spara denna JSON på en säker plats på datorn.
 

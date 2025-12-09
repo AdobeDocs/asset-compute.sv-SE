@@ -2,9 +2,9 @@
 title: Förstå hur ett anpassat program fungerar
 description: Internt arbete i  [!DNL Asset Compute Service] anpassat program för att förstå hur det fungerar.
 exl-id: a3ee6549-9411-4839-9eff-62947d8f0e42
-source-git-commit: f15b9819d3319d22deccdf7e39c0f72728baaa39
+source-git-commit: f199cecfe4409e2370b30783f984062196dd807d
 workflow-type: tm+mt
-source-wordcount: '691'
+source-wordcount: '689'
 ht-degree: 0%
 
 ---
@@ -110,15 +110,15 @@ Mer information om återgivningens återanropsparametrar finns i [Asset Compute 
 
 ### Överför renderingar {#upload-rendition}
 
-När varje återgivning har skapats och lagrats i en fil med sökvägen som tillhandahålls av `rendition.path`, överför [&#x200B; Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) varje återgivning till ett molnlagringsutrymme (antingen AWS eller Azure). Ett anpassat program hämtar flera återgivningar samtidigt om, och bara om, den inkommande begäran har flera återgivningar som pekar på samma program-URL. Överföringen till molnlagringen görs efter varje återgivning och innan återanropet för nästa återgivning körs.
+När varje återgivning har skapats och lagrats i en fil med sökvägen som tillhandahålls av `rendition.path`, överför [ Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) varje återgivning till ett molnlagringsutrymme (antingen AWS eller Azure). Ett anpassat program hämtar flera återgivningar samtidigt om, och bara om, den inkommande begäran har flera återgivningar som pekar på samma program-URL. Överföringen till molnlagringen görs efter varje återgivning och innan återanropet för nästa återgivning körs.
 
 `batchWorker()` har ett annat beteende. Alla återgivningar bearbetas, och först när alla har bearbetats överförs de.
 
-## [!DNL Adobe I/O] händelser {#aio-events}
+## [!DNL Adobe I/O Events] {#aio-events}
 
 SDK skickar Adobe [!DNL I/O Events] för varje återgivning. Dessa händelser är antingen av typen `rendition_created` eller `rendition_failed` beroende på resultatet. Mer information finns i [Asset Compute asynkrona händelser](api.md#asynchronous-events).
 
-## Ta emot [!DNL Adobe I/O] händelser {#receive-aio-events}
+## Ta emot [!DNL Adobe I/O Events] {#receive-aio-events}
 
 Klienten avsöker Adobe [!DNL I/O Events]-journalen enligt dess konsumtionslogik. Den inledande journal-URL:en är den som anges i API-svaret för `/register`. Händelser kan identifieras med hjälp av `requestId` som finns i händelserna och är samma som returneras i `/process`. Varje återgivning har en separat händelse som skickas så snart återgivningen har överförts (eller misslyckats). När klienten tar emot en matchande händelse kan den visa eller på annat sätt hantera de resulterande återgivningarna.
 
@@ -140,7 +140,7 @@ await Promise.all(events.map(event => {
 }));
 ```
 
-Mer information om hur du hämtar journalhändelser finns i Adobe [[!DNL I/O Events] API](https://developer.adobe.com/events/docs/guides/api/journaling_api/).
+Mer information om hur du hämtar journalhändelser finns i Adobe [[!DNL I/O Events] API](https://developer.adobe.com/events/docs/guides/api/journaling-api#).
 
 <!-- TBD:
 * Illustration of the controls/data flow.

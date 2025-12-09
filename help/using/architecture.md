@@ -2,7 +2,7 @@
 title: Arkitektur för  [!DNL Asset Compute Service]
 description: Hur [!DNL Asset Compute Service] API, program och SDK fungerar tillsammans för att tillhandahålla en molnbaserad resurshanteringstjänst.
 exl-id: 658ee4b7-5eb1-4109-b263-1b7d705e49d6
-source-git-commit: f15b9819d3319d22deccdf7e39c0f72728baaa39
+source-git-commit: f199cecfe4409e2370b30783f984062196dd807d
 workflow-type: tm+mt
 source-wordcount: '478'
 ht-degree: 0%
@@ -15,7 +15,7 @@ ht-degree: 0%
 
 [!DNL Asset Compute Service] kan utökas genom att skapa anpassade program baserade på [!DNL Adobe Developer App Builder]. Dessa anpassade program är [!DNL Project Adobe Developer App Builder] headless-appar och utför uppgifter som att lägga till anpassade konverteringsverktyg eller anropa externa API:er för att utföra bildåtgärder.
 
-[!DNL Project Adobe Developer App Builder] är ett ramverk för att skapa och distribuera anpassade webbprogram på Adobe [!DNL `I/O Runtime`]. Om du vill skapa anpassade program kan utvecklarna använda [!DNL React Spectrum] (Adobe UI-verktygslådan), skapa mikrotjänster, skapa anpassade händelser och ordna API:er. Se [dokumentation om Adobe Developer App Builder](https://developer.adobe.com/app-builder/docs/overview).
+[!DNL Project Adobe Developer App Builder] är ett ramverk för att skapa och distribuera anpassade webbprogram på Adobe [!DNL `I/O Runtime`]. Om du vill skapa anpassade program kan utvecklarna använda [!DNL React Spectrum] (Adobe UI-verktygslådan), skapa mikrotjänster, skapa anpassade händelser och ordna API:er. Se [dokumentation om Adobe Developer App Builder](https://developer.adobe.com/app-builder/docs/intro_and_overview/#).
 
 Arkitekturen bygger på följande:
 

@@ -2,9 +2,9 @@
 title: Ange den utvecklingsmiljö som krävs för  [!DNL Asset Compute Service]
 description: Konfigurera utvecklarmiljön för  [!DNL Asset Compute Service]  för att börja skapa och testa anpassad kod.
 exl-id: 91c12889-01d8-4757-9bdd-f73c491cd9d5
-source-git-commit: db38b9dc27505aa7e04cf58a646005fc2e0e8782
+source-git-commit: 63f83ff33ac6cd090fac4f6db18000155f464643
 workflow-type: tm+mt
-source-wordcount: '353'
+source-wordcount: '354'
 ht-degree: 0%
 
 ---
@@ -13,9 +13,9 @@ ht-degree: 0%
 
 Om du vill skapa en konfiguration som gör att du kan utveckla för [!DNL Asset Compute Service] följer du dessa krav och instruktioner.
 
-1. [Hämta åtkomst och autentiseringsuppgifter](https://developer.adobe.com/app-builder/docs/getting_started/#acquire-access-and-credentials) för [!DNL Adobe Developer App Builder].
+1. [Hämta åtkomst och autentiseringsuppgifter](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#acquire-access-and-credentials) för [!DNL Adobe Developer App Builder].
 
-1. [Konfigurera den lokala miljön](https://developer.adobe.com/app-builder/docs/getting_started/#local-environment-set-up) och de verktyg som krävs.
+1. [Konfigurera den lokala miljön](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#local-environment-set-up) och de verktyg som krävs.
 
 1. Några andra verktyg som hjälper dig att komma igång smidigt är:
 
@@ -40,13 +40,13 @@ Om du vill skapa en konfiguration som gör att du kan utveckla för [!DNL Asset 
 
 1. Logga in på [Adobe Developer Console](https://developer.adobe.com/console/user/servicesandapis). Se till att du är en del av samma [!DNL Experience Cloud]-organisation som [!DNL Experience Manager] som en [!DNL Cloud Service]-integrering. Mer information om Adobe Developer Console finns i [Konsoldokumentationen](https://developer.adobe.com/developer-console/docs/guides/).
 
-1. [Skapa ett App Builder-projekt](https://developer.adobe.com/app-builder/docs/getting_started/first_app/). Klicka på **[!UICONTROL Create new project]** > **[!UICONTROL Project from template]**. Välj App Builder. Det skapar ett nytt App Builder-projekt med två arbetsytor: `Production` och `Stage`. Lägg till ytterligare arbetsytor, till exempel `Development`, efter behov.
+1. [Skapa ett App Builder-projekt](https://developer.adobe.com/app-builder/docs/get_started/app_builder_get_started/first-app#). Klicka på **[!UICONTROL Create new project]** > **[!UICONTROL Project from template]**. Välj App Builder. Det skapar ett nytt App Builder-projekt med två arbetsytor: `Production` och `Stage`. Lägg till ytterligare arbetsytor, till exempel `Development`, efter behov.
 
 1. I App Builder Project väljer du en arbetsyta och prenumererar på de tjänster som krävs för Asset Compute. Klicka på **Lägg till i projekt** > **API** och lägg till `Asset Compute`-, `IO Events`- och `IO Events Management`-tjänster. När du lägger till det första API:t uppmanas du att skapa en privat nyckel. Spara informationen på datorn när du behöver den här nyckeln för att testa det anpassade programmet med utvecklingsverktyget.
 
    >[!NOTE]
    >
-   >JWT är föråldrat och privat nyckel är inte tillgängligt för hämtning. Observera att anpassade arbetare som skapats med OAuth kan distribueras, men utvecklingsverktyg fungerar inte när vi uppdaterar testverktygen.
+   >JWT är föråldrat och den privata nyckeln är inte tillgänglig för hämtning. Medan Adobe arbetar med att uppdatera testverktygen bör du tänka på att anpassade arbetare som skapats med OAuth kan distribueras, men att devtools inte fungerar.
 
 ## Nästa steg {#next-step}
 
