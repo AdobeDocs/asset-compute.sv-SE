@@ -2,9 +2,9 @@
 title: Testa och felsöka  [!DNL Asset Compute Service] anpassade program
 description: Testa och felsök det anpassade programmet  [!DNL Asset Compute Service] .
 exl-id: c2534904-0a07-465e-acea-3cb578d3bc08
-source-git-commit: f199cecfe4409e2370b30783f984062196dd807d
+source-git-commit: aed361a577fc53caec4118e417b1c0c814617b51
 workflow-type: tm+mt
-source-wordcount: '769'
+source-wordcount: '849'
 ht-degree: 0%
 
 ---
@@ -19,7 +19,8 @@ Installera [Docker Desktop](https://www.docker.com/get-started) på datorn. Om d
 $ aio app test
 ```
 
-<!-- TBD
+<!-- 
+TBD
 To run tests for a custom application, run `aio asset-compute test-worker` command at the root of the custom application application.
 
 Document interactively running `adobe-asset-compute` commands `test-worker` and `run-worker`.

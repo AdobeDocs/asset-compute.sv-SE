@@ -2,9 +2,9 @@
 title: Ange den utvecklingsmiljö som krävs för  [!DNL Asset Compute Service]
 description: Konfigurera utvecklarmiljön för  [!DNL Asset Compute Service]  för att börja skapa och testa anpassad kod.
 exl-id: 91c12889-01d8-4757-9bdd-f73c491cd9d5
-source-git-commit: 63f83ff33ac6cd090fac4f6db18000155f464643
+source-git-commit: aed361a577fc53caec4118e417b1c0c814617b51
 workflow-type: tm+mt
-source-wordcount: '354'
+source-wordcount: '410'
 ht-degree: 0%
 
 ---
@@ -52,7 +52,8 @@ Om du vill skapa en konfiguration som gör att du kan utveckla för [!DNL Asset 
 
 När miljön är konfigurerad är du redo att [skapa ett anpassat program](develop-custom-application.md).
 
-<!-- More ideas:
+<!-- 
+More ideas:
  
 * Any steps in the beginning that lead to gotchas later should be called out for caution? For example,
   * don't change some defaults initially

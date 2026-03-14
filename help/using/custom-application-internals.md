@@ -2,9 +2,9 @@
 title: Förstå hur ett anpassat program fungerar
 description: Internt arbete i  [!DNL Asset Compute Service] anpassat program för att förstå hur det fungerar.
 exl-id: a3ee6549-9411-4839-9eff-62947d8f0e42
-source-git-commit: f199cecfe4409e2370b30783f984062196dd807d
+source-git-commit: aed361a577fc53caec4118e417b1c0c814617b51
 workflow-type: tm+mt
-source-wordcount: '689'
+source-wordcount: '786'
 ht-degree: 0%
 
 ---
@@ -72,7 +72,9 @@ Nedan följer ett exempel på en anpassad begäran om programbearbetning.
 
 [Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) som används av ett anpassat program hanterar HTTP POST-begäran. Det hanterar också hämtning av källan, överföring av återgivningar, sändning av Adobe [!DNL I/O Events] och felhantering.
 
-<!-- TBD: Add the application diagram. -->
+<!-- 
+TBD: Add the application diagram. 
+-->
 
 ### Programkod {#application-code}
 
@@ -110,7 +112,7 @@ Mer information om återgivningens återanropsparametrar finns i [Asset Compute 
 
 ### Överför renderingar {#upload-rendition}
 
-När varje återgivning har skapats och lagrats i en fil med sökvägen som tillhandahålls av `rendition.path`, överför [&#x200B; Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) varje återgivning till ett molnlagringsutrymme (antingen AWS eller Azure). Ett anpassat program hämtar flera återgivningar samtidigt om, och bara om, den inkommande begäran har flera återgivningar som pekar på samma program-URL. Överföringen till molnlagringen görs efter varje återgivning och innan återanropet för nästa återgivning körs.
+När varje återgivning har skapats och lagrats i en fil med sökvägen som tillhandahålls av `rendition.path`, överför [ Asset Compute SDK](https://github.com/adobe/asset-compute-sdk#adobe-asset-compute-worker-sdk) varje återgivning till ett molnlagringsutrymme (antingen AWS eller Azure). Ett anpassat program hämtar flera återgivningar samtidigt om, och bara om, den inkommande begäran har flera återgivningar som pekar på samma program-URL. Överföringen till molnlagringen görs efter varje återgivning och innan återanropet för nästa återgivning körs.
 
 `batchWorker()` har ett annat beteende. Alla återgivningar bearbetas, och först när alla har bearbetats överförs de.
 
@@ -142,7 +144,8 @@ await Promise.all(events.map(event => {
 
 Mer information om hur du hämtar journalhändelser finns i Adobe [[!DNL I/O Events] API](https://developer.adobe.com/events/docs/guides/api/journaling-api#).
 
-<!-- TBD:
+<!-- 
+TBD:
 * Illustration of the controls/data flow.
 * Basic overview, in text and not code, of how an application works.
 -->

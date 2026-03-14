@@ -2,9 +2,9 @@
 title: Introduktion till  [!DNL Asset Compute Service]
 description: '[!DNL Asset Compute Service] är en resurshanteringstjänst i molnet som minskar komplexiteten och förbättrar skalbarheten.'
 exl-id: f8c89f65-5a94-44f3-aaac-4612ae291101
-source-git-commit: 63f83ff33ac6cd090fac4f6db18000155f464643
+source-git-commit: aed361a577fc53caec4118e417b1c0c814617b51
 workflow-type: tm+mt
-source-wordcount: '278'
+source-wordcount: '355'
 ht-degree: 0%
 
 ---
@@ -19,19 +19,20 @@ Utvecklare kan plugin-program för anpassade resurser (kallas även anpassade ar
 
 >[!NOTE]
 >
->För närvarande kan [!DNL Asset Compute Service] bara användas via [!DNL Experience Manager] som [!DNL Cloud Service]. Administratörer skapar bearbetningsprofiler som kan anropa [!DNL Asset Compute Service] för att skicka resurser för bearbetning. Se [Använda resursmikrotjänster och bearbetningsprofiler](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+>För närvarande kan [!DNL Asset Compute Service] bara användas via [!DNL Experience Manager] som [!DNL Cloud Service]. Administratörer skapar bearbetningsprofiler som kan anropa [!DNL Asset Compute Service] för att skicka resurser för bearbetning. Se [Använda resursmikrotjänster och bearbetningsprofiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 ## Användningsexempel som stöds av [!DNL Asset Compute Service] {#possible-use-cases-benefits}
 
 [!DNL Asset Compute Service] har stöd för ett fåtal vanliga användningsfall, t.ex. grundläggande bildbearbetning, Adobe-programspecifika konverteringar och anpassade program som hanterar komplexa affärsbehov.
 
-Du kan använda webbtjänsten [!DNL Asset Compute] för att generera miniatyrbilder för olika filtyper, bildåtergivning med hög kvalitet för de [filformat som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support). Se [användningsfall som stöds via anpassad konfiguration](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+Du kan använda webbtjänsten [!DNL Asset Compute] för att generera miniatyrbilder för olika filtyper, bildåtergivning med hög kvalitet för de [filformat som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support). Se [användningsfall som stöds via anpassad konfiguration](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
 >Tjänsten tillhandahåller inte resurslagring. Användarna tillhandahåller den och tillhandahåller referenser till källfiler och återgivningsfiler i molnlagringen.
 
-<!-- TBD: Should this be mentioned in the docs?
+<!-- 
+TBD: Should this be mentioned in the docs?
 
 |Asset Compute Service does not do this|Expectations from implementing client|
 |---|---|
@@ -44,11 +45,12 @@ Du kan använda webbtjänsten [!DNL Asset Compute] för att generera miniatyrbil
 
 >[!MORELIKETHIS]
 >
->* [Översikt över resursbearbetning med tillgångsmikrotjänster i [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview).
+>* [Översikt över resursbearbetning med tillgångsmikrotjänster i [!DNL Adobe Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview).
 >* [Dokumentation för Adobe Developer App Builder](https://developer.adobe.com/app-builder/docs/intro_and_overview/#).
->* [Filformat som stöds för bearbetning](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support).
+>* [Filformat som stöds för bearbetning](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
 
-<!-- **TBD:**
+<!-- 
+**TBD:**
 * Clarify the service can only be used within AEM as Cloud Service. The docs provided as context for custom application developers. Not to be used as a standalone service.
   ** and API as that plays a role in custom applications (accepting standard params, invoking Nui itself in the future, etc. (this is an outlook))
 

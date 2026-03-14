@@ -2,16 +2,16 @@
 title: Förstå om att utöka  [!DNL Asset Compute Service]
 description: När och hur du ska utöka  [!DNL Asset Compute Service] funktionen för anpassad bearbetning av resurser.
 exl-id: 3b903364-34cc-44d5-9a03-24a0102cf85d
-source-git-commit: 63f83ff33ac6cd090fac4f6db18000155f464643
+source-git-commit: aed361a577fc53caec4118e417b1c0c814617b51
 workflow-type: tm+mt
-source-wordcount: '229'
+source-wordcount: '304'
 ht-degree: 0%
 
 ---
 
 # Introduktion till utökningsbarhet {#introduction-to-extensibilty}
 
-Många återgivningskrav, som konvertering till format och storleksändring av bilder, hanteras av [Bearbeta profiler i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview). Mer komplexa affärsbehov kan behöva en skräddarsydd lösning som passar organisationens behov. [!DNL Asset Compute Service] kan utökas genom att skapa anpassade program som anropas från Bearbeta profiler i [!DNL Experience Manager]. Dessa anpassade program uppfyller de [användningsfall som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+Många återgivningskrav, som konvertering till format och storleksändring av bilder, hanteras av [Bearbeta profiler i [!DNL Experience Manager] som en [!DNL Cloud Service]](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/asset-microservices-overview). Mer komplexa affärsbehov kan behöva en skräddarsydd lösning som passar organisationens behov. [!DNL Asset Compute Service] kan utökas genom att skapa anpassade program som anropas från Bearbeta profiler i [!DNL Experience Manager]. Dessa anpassade program uppfyller de [användningsfall som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
@@ -30,7 +30,8 @@ Kontrollera att du uppfyller följande krav:
 * Se till att utvecklarrollen eller administratörsbehörigheten finns i organisationen för utvecklaren.
 * Kontrollera att Adobe [[!DNL aio-cli]](https://github.com/adobe/aio-cli) har installerats lokalt.
 
-<!-- TBD for later:
+<!-- 
+TBD for later:
 
 * What all accesses and licenses are required?
 * What all permissions are required to create, debug, and deploy custom applications?

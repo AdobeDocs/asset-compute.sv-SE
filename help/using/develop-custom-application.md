@@ -2,9 +2,9 @@
 title: Utveckla för  [!DNL Asset Compute Service]
 description: Skapa anpassade program med  [!DNL Asset Compute Service].
 exl-id: a0c59752-564b-4bb6-9833-ab7c58a7f38e
-source-git-commit: 63f83ff33ac6cd090fac4f6db18000155f464643
+source-git-commit: aed361a577fc53caec4118e417b1c0c814617b51
 workflow-type: tm+mt
-source-wordcount: '1489'
+source-wordcount: '1722'
 ht-degree: 0%
 
 ---
@@ -40,7 +40,7 @@ Kontrollera att [Adobe aio-cli](https://github.com/adobe/aio-cli) är installera
    ◯ DX Asset Compute Worker
    ```
 
-1. Välj `Which Adobe I/O App features do you want to enable for this project?` när du uppmanas till det med `Actions`. Avmarkera alternativet `Web Assets` eftersom webbresurser använder olika autentiserings- och auktoriseringskontroller.
+1. Välj `Actions` när du uppmanas till det med `Which Adobe I/O App features do you want to enable for this project?`. Avmarkera alternativet `Web Assets` eftersom webbresurser använder olika autentiserings- och auktoriseringskontroller.
 
    ```bash
    ? Which Adobe I/O App features do you want to enable for this project?
@@ -72,7 +72,8 @@ Se [exempel på anpassade program](#try-sample) för exempel och idéer på anpa
 
 När du loggar in när du skapar programmet samlas de flesta App Builder-inloggningsuppgifterna in i din ENV-fil. Om du använder utvecklingsverktyget måste du dock ha ytterligare autentiseringsuppgifter.
 
-<!-- TBD: Check if manual setup of credentials is required.
+<!-- 
+TBD: Check if manual setup of credentials is required.
 Manual set up of credentials is removed from troubleshooting and best practices page. Link was broken.
 If you did not log in, refer to our troubleshooting guide to [set up credentials manually](troubleshooting.md).
 -->
@@ -110,7 +111,7 @@ Infoga de efterföljande autentiseringsuppgifterna för utvecklingsverktyget i f
      ASSET_COMPUTE_INTEGRATION_FILE_PATH=
      ```
 
-1. Lägg till autentiseringsuppgifter för S3 eller Azure-lagring. Du behöver bara tillgång till en molnlagringslösning.
+1. Lägg till lagringsuppgifter för S3 eller Azure. Du behöver bara tillgång till en molnlagringslösning.
 
    ```conf
    # S3 credentials
@@ -155,7 +156,7 @@ Se [här](test-custom-application.md) om hur du testar och felsöker programmet.
 Följande är exempel på anpassade program:
 
 * [worker-basic](https://github.com/adobe/asset-compute-example-workers/tree/master/projects/worker-basic)
-* [worker-Animal-images](https://github.com/adobe/asset-compute-example-workers/tree/master/projects/worker-animal-pictures)
+* [djurbilder](https://github.com/adobe/asset-compute-example-workers/tree/master/projects/worker-animal-pictures)
 
 ### Anpassat mallprogram {#template-custom-application}
 
@@ -191,7 +192,8 @@ exports.main = worker(async function (source, rendition) {
 
 [`worker-animal-pictures`](https://github.com/adobe/asset-compute-example-workers/blob/master/projects/worker-animal-pictures/worker-animal-pictures.js#L46) skapar till exempel en hämtningsbegäran till en statisk URL från Wikimedia med hjälp av biblioteket [`node-httptransfer`](https://github.com/adobe/node-httptransfer#node-httptransfer).
 
-<!-- TBD: Revisit later to see if this note is required.
+<!-- 
+TBD: Revisit later to see if this note is required.
 >[!NOTE]
 >
 >For extra authorization for these API calls, see [custom authorization checks](#custom-authorization-checks).
@@ -230,7 +232,8 @@ Som standard följer Asset Compute anpassade program autentisering och autentise
 
 ### Få åtkomst till andra Adobe API:er {#access-adobe-apis}
 
-<!-- TBD: Revisit this section. Where do we document console workspace creation?
+<!-- 
+TBD: Revisit this section. Where do we document console workspace creation?
 -->
 
 Lägg till API-tjänsterna på arbetsytan för konsolen [!DNL Asset Compute] som skapades i konfigurationen. De här tjänsterna ingår i JWT-åtkomsttoken som genererats av [!DNL Asset Compute Service]. Token och andra autentiseringsuppgifter är tillgängliga inuti programåtgärdsobjektet `params`.

@@ -2,9 +2,9 @@
 title: Felsök [!DNL Asset Compute Service]
 description: Felsök och felsök anpassade program med  [!DNL Asset Compute Service].
 exl-id: 017fff91-e5e9-4a30-babf-5faa1ebefc2f
-source-git-commit: 63f83ff33ac6cd090fac4f6db18000155f464643
+source-git-commit: aed361a577fc53caec4118e417b1c0c814617b51
 workflow-type: tm+mt
-source-wordcount: '272'
+source-wordcount: '292'
 ht-degree: 0%
 
 ---
@@ -43,7 +43,8 @@ Om du har problem med att logga in på [!DNL Adobe Developer Console] [via Adobe
 
 1. Ställ in resten av de [obligatoriska autentiseringsuppgifterna](develop-custom-application.md) som krävs för utvecklingsverktyget.
 
-<!-- TBD for later:
+<!-- 
+TBD for later:
 Add any best practices for developers in this section:
 * Any items to take care of when creating projects.
 * Any naming conventions, reserved keywords, etc.?

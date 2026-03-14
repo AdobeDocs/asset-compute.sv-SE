@@ -2,16 +2,16 @@
 title: '[!DNL Asset Compute Service] HTTP API'
 description: '[!DNL Asset Compute Service] HTTP API för att skapa anpassade program.'
 exl-id: 4b63fdf9-9c0d-4af7-839d-a95e07509750
-source-git-commit: f15b9819d3319d22deccdf7e39c0f72728baaa39
+source-git-commit: aed361a577fc53caec4118e417b1c0c814617b51
 workflow-type: tm+mt
-source-wordcount: '2862'
+source-wordcount: '2995'
 ht-degree: 0%
 
 ---
 
 # [!DNL Asset Compute Service] HTTP API {#asset-compute-http-api}
 
-API:t används endast i utvecklingssyfte. API:t anges som ett sammanhang när du utvecklar anpassade program. [!DNL Adobe Experience Manager] som [!DNL Cloud Service] använder API:t för att skicka bearbetningsinformationen till ett anpassat program. Mer information finns i [Använda resursmikrotjänster och Bearbeta profiler](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+API:t används endast i utvecklingssyfte. API:t anges som ett sammanhang när du utvecklar anpassade program. [!DNL Adobe Experience Manager] som [!DNL Cloud Service] använder API:t för att skicka bearbetningsinformationen till ett anpassat program. Mer information finns i [Använda resursmikrotjänster och Bearbeta profiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
@@ -37,7 +37,8 @@ Alla API:er kräver åtkomsttokenautentisering. Förfrågningarna måste ange f�
 
 1. `Authorization`-huvud med bearer-token, som är den tekniska kontotoken, har tagits emot via [JWT exchange](https://developer.adobe.com/developer-console/docs/guides/) från Adobe Developer Console-projekt. [omfattningarna](#scopes) beskrivs nedan.
 
-<!-- TBD: Change the existing URL to a new path when a new path for docs is available. The current path contains master word that is not an inclusive term. Logged ticket in Adobe I/O's GitHub repo to get a new URL.
+<!-- 
+TBD: Change the existing URL to a new path when a new path for docs is available. The current path contains master word that is not an inclusive term. Logged ticket in Adobe I/O's GitHub repo to get a new URL.
 -->
 
 1. `x-gw-ims-org-id`-huvud med IMS-organisations-ID.
@@ -88,7 +89,7 @@ Detta API-anrop konfigurerar en [!DNL Asset Compute]-klient och tillhandahåller
 | Parameter | Värde |
 |--------------------------|------------------------------------------------------|
 | Metod | `POST` |
-| Bana | `/register` |
+| Sökväg | `/register` |
 | Sidhuvud `Authorization` | Alla [auktoriseringsrelaterade rubriker](#authentication-and-authorization). |
 | Sidhuvud `x-request-id` | Valfritt, angivet av klienter för en unik slutidentifierare av bearbetningsbegäranden mellan olika system. |
 | Begärandetext | Måste vara tomt. |
@@ -145,7 +146,7 @@ Detta API-anrop avregistrerar en [!DNL Asset Compute]-klient. När avregistrerin
 | Parameter | Värde |
 |--------------------------|------------------------------------------------------|
 | Metod | `POST` |
-| Bana | `/unregister` |
+| Sökväg | `/unregister` |
 | Sidhuvud `Authorization` | Alla [auktoriseringsrelaterade rubriker](#authentication-and-authorization). |
 | Sidhuvud `x-request-id` | Valfritt. Klienterna kan ange den för en unik slutidentifierare av bearbetningsförfrågningarna mellan olika system. |
 | Begärandetext | Tom. |
@@ -213,7 +214,7 @@ Binärfiler refereras med URL:er, som försignerade URL:er för Amazon AWS S3 el
 | Parameter | Värde |
 |--------------------------|------------------------------------------------------|
 | Metod | `POST` |
-| Bana | `/process` |
+| Sökväg | `/process` |
 | MIME-typ | `application/json` |
 | Sidhuvud `Authorization` | Alla [auktoriseringsrelaterade rubriker](#authentication-and-authorization). |
 | Sidhuvud `x-request-id` | Valfritt. Klienter kan ange en unik slutidentifierare för att spåra bearbetningsbegäranden i olika system. |
@@ -255,11 +256,11 @@ De tillgängliga fälten är:
 | Namn | Typ | Beskrivning | Exempel |
 |-----------|----------|-------------|---------|
 | `url` | `string` | URL för källresursen som ska bearbetas. Obligatoriskt. | `"http://example.com/image.jpg"` |
-| `name` | `string` | Source resursfilnamn. Ett filtillägg i namnet kan användas om ingen MIME-typ identifieras. Den har prioritet över det filnamn som anges i URL-sökvägen. Den har dessutom prioritet över filnamnet i `content-disposition`-huvudet för den binära resursen. Standardvärdet är &quot;file&quot;. | `"image.jpg"` |
-| `size` | `number` | Source filstorlek i byte. Prioriterar över `content-length` huvud för den binära resursen. | `10234` |
-| `mimetype` | `string` | MIME-typ för Source-resursfil. Prioriterar huvuden `content-type` för den binära resursen. | `"image/jpeg"` |
+| `name` | `string` | Source resursfilnamn. Ett filtillägg i namnet kan användas om ingen MIME-typ identifieras. Den har högre prioritet än filnamnet som anges i URL-sökvägen. Den har dessutom högre prioritet än filnamnet i rubriken `content-disposition` för den binära resursen. Standardvärdet är &quot;file&quot;. | `"image.jpg"` |
+| `size` | `number` | Källresursfilens storlek i byte. Har företräde framför rubriken `content-length` för den binära resursen. | `10234` |
+| `mimetype` | `string` | MIME-typ för källresursfil. Har företräde framför rubriken `content-type` för den binära resursen. | `"image/jpeg"` |
 
-### Ett fullständigt exempel på `process`-begäran {#complete-process-request-example}
+### Ett fullständigt exempel på `process`-förfrågan {#complete-process-request-example}
 
 ```json
 {
@@ -288,19 +289,19 @@ De tillgängliga fälten är:
 }
 ```
 
-## Processsvar {#process-response}
+## Bearbeta svar {#process-response}
 
-`/process`-begäran returneras omedelbart med ett lyckat eller misslyckat svar baserat på den grundläggande begärandevalideringen. Faktisk bearbetning av resurser sker asynkront.
+`/process`-begäran returneras omedelbart med en framgång eller ett fel baserat på den grundläggande verifieringen av begäran. Faktisk bearbetning av resurser sker asynkront.
 
 | Parameter | Värde |
 |-----------------------|------------------------------------------------------|
 | MIME-typ | `application/json` |
-| Sidhuvud `X-Request-Id` | Antingen samma som begärandehuvudet `X-Request-Id` eller en unikt genererad. Används för att identifiera förfrågningar mellan system eller supportförfrågningar. |
-| Svarstext | Ett JSON-objekt med fälten `ok` och `requestId`. |
+| Rubrik `X-Request-Id` | Antingen samma som `X-Request-Id`-begäranderubriken eller ett unikt genererat. Används för att identifiera förfrågningar i olika system eller supportärenden. |
+| Svarstext | Ett JSON-objekt med `ok` och `requestId` fält. |
 
 Statuskoder:
 
-* **200 lyckades**: Om begäran skickades utan fel. Svar-JSON innehåller `"ok": true`:
+* **200 Lyckades**: om begäran skickades. JSON-svar inkluderar `"ok": true`:
 
   ```json
   {
@@ -309,7 +310,7 @@ Statuskoder:
   }
   ```
 
-* **400 Ogiltig begäran**: Om begäran är felaktigt strukturerad, till exempel om den saknar obligatoriska fält i JSON-nyttolasten. Svar-JSON innehåller `"ok": false`:
+* **400 Ogiltig begäran**: Om begäran är felaktigt strukturerad, till exempel om den saknar obligatoriska fält i JSON-nyttolasten. JSON-svar inkluderar `"ok": false`:
 
   ```json
   {
@@ -373,7 +374,7 @@ Följande är tillgängliga alternativ för arrayen `renditions` i [`/process`](
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
-| `fmt` | `string` | Målformatet för återgivningar kan också vara `text` för textrahering och `xmp` för extrahering av XMP-metadata som xml. Se [format som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support) | `png` |
+| `fmt` | `string` | Målformatet för återgivningar kan också vara `text` för textrahering och `xmp` för extrahering av XMP-metadata som xml. Se [format som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support) | `png` |
 | `worker` | `string` | URL för ett [anpassat program](develop-custom-application.md). Måste vara en `https://`-URL. Om det här fältet finns skapar ett anpassat program återgivningen. Alla andra inställda återgivningsfält används sedan i det anpassade programmet. | `"https://1234.adobeioruntime.net`<br>`/api/v1/web`<br>`/example-custom-worker-master/worker"` |
 | `target` | `string` | Den URL som den genererade återgivningen ska överföras till med HTTP PUT. | `http://w.com/img.jpg` |
 | `target` | `object` | Multipart-försignerad URL-överföringsinformation för den genererade återgivningen. Den här informationen gäller för [AEM/Oak Direct Binary Upload](https://jackrabbit.apache.org/oak/docs/features/direct-binary-access.html) med detta [flerdelsöverföringsbeteende](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/api/binary/BinaryUpload.html).<br>Fält:<ul><li>`urls`: strängmatris, en för varje försignerad del-URL</li><li>`minPartSize`: den minsta storleken som ska användas för en del = url</li><li>`maxPartSize`: den största storleken som kan användas för en del = url</li></ul> | `{ "urls": [ "https://part1...", "https://part2..." ], "minPartSize": 10000, "maxPartSize": 100000 }` |
@@ -381,7 +382,7 @@ Följande är tillgängliga alternativ för arrayen `renditions` i [`/process`](
 
 ### Återgivningsspecifika fält {#rendition-specific-fields}
 
-En lista över de filformat som stöds finns i [Filformat som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support).
+En lista över de filformat som stöds finns i [Filformat som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
