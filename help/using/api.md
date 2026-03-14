@@ -11,7 +11,7 @@ ht-degree: 0%
 
 # [!DNL Asset Compute Service] HTTP API {#asset-compute-http-api}
 
-API:t används endast i utvecklingssyfte. API:t anges som ett sammanhang när du utvecklar anpassade program. [!DNL Adobe Experience Manager] som [!DNL Cloud Service] använder API:t för att skicka bearbetningsinformationen till ett anpassat program. Mer information finns i [Använda resursmikrotjänster och Bearbeta profiler](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
+API:t används endast i utvecklingssyfte. API:t anges som ett sammanhang när du utvecklar anpassade program. [!DNL Adobe Experience Manager] som [!DNL Cloud Service] använder API:t för att skicka bearbetningsinformationen till ett anpassat program. Mer information finns i [Använda resursmikrotjänster och Bearbeta profiler](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/manage/asset-microservices-configure-and-use).
 
 >[!NOTE]
 >
@@ -374,7 +374,7 @@ Följande är tillgängliga alternativ för arrayen `renditions` i [`/process`](
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
-| `fmt` | `string` | Målformatet för återgivningar kan också vara `text` för textrahering och `xmp` för extrahering av XMP-metadata som xml. Se [format som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support) | `png` |
+| `fmt` | `string` | Målformatet för återgivningar kan också vara `text` för textrahering och `xmp` för extrahering av XMP-metadata som xml. Se [format som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support) | `png` |
 | `worker` | `string` | URL för ett [anpassat program](develop-custom-application.md). Måste vara en `https://`-URL. Om det här fältet finns skapar ett anpassat program återgivningen. Alla andra inställda återgivningsfält används sedan i det anpassade programmet. | `"https://1234.adobeioruntime.net`<br>`/api/v1/web`<br>`/example-custom-worker-master/worker"` |
 | `target` | `string` | Den URL som den genererade återgivningen ska överföras till med HTTP PUT. | `http://w.com/img.jpg` |
 | `target` | `object` | Multipart-försignerad URL-överföringsinformation för den genererade återgivningen. Den här informationen gäller för [AEM/Oak Direct Binary Upload](https://jackrabbit.apache.org/oak/docs/features/direct-binary-access.html) med detta [flerdelsöverföringsbeteende](https://jackrabbit.apache.org/oak/docs/apidocs/org/apache/jackrabbit/api/binary/BinaryUpload.html).<br>Fält:<ul><li>`urls`: strängmatris, en för varje försignerad del-URL</li><li>`minPartSize`: den minsta storleken som ska användas för en del = url</li><li>`maxPartSize`: den största storleken som kan användas för en del = url</li></ul> | `{ "urls": [ "https://part1...", "https://part2..." ], "minPartSize": 10000, "maxPartSize": 100000 }` |
@@ -382,7 +382,7 @@ Följande är tillgängliga alternativ för arrayen `renditions` i [`/process`](
 
 ### Återgivningsspecifika fält {#rendition-specific-fields}
 
-En lista över de filformat som stöds finns i [Filformat som stöds](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/assets/file-format-support).
+En lista över de filformat som stöds finns i [Filformat som stöds](https://experienceleague.adobe.com/sv/docs/experience-manager-cloud-service/content/assets/file-format-support).
 
 | Namn | Typ | Beskrivning | Exempel |
 |-------------------|----------|-------------|---------|
